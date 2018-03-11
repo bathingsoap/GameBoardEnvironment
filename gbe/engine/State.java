@@ -17,4 +17,6 @@ public abstract class State {
 	public State() {
 		
 	}
+
+	public updateState(){}
 }

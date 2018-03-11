@@ -4,5 +4,5 @@ public interface Board {
 	//String boardType;
 	//int[][] board;
 	
-	Board createBoard();
+	Board createBoard(String boardType);
 }

@@ -10,4 +10,12 @@ public abstract class GameLogic {
 	public GameLogic(State s) {
 		this.state = s;
 	}
+
+	public void update(GameState gs){
+
+	}
+
+	public Player nextTurn(State state){
+
+	}
 }
