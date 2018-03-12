@@ -1,7 +1,7 @@
-package gbe.gui;
+package gui;
 
-import gbe.engine.*;
-import gbe.players.*;
+import engine.*;
+import players.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.awt.Dimension;

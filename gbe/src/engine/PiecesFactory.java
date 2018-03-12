@@ -1,4 +1,4 @@
-package gbe.engine;
+package engine;
 
 public class PiecesFactory {
 

@@ -1,8 +1,8 @@
-package gbe.environment;
+package environment;
 
-import gbe.players.*;
-import gbe.gui.*;
-import gbe.engine.*;
+import players.*;
+import gui.*;
+import engine.*;
 
 public class Driver {
 

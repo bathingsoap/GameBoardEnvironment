@@ -1,7 +1,7 @@
-package gbe.engine;
+package engine;
 
-import gbe.players.*;
-import gbe.gui.*;
+import players.*;
+import gui.*;
 
 public class GameEngine {
 

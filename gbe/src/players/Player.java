@@ -1,4 +1,4 @@
-package gbe.players;
+package players;
 
 public class Player {
 
@@ -9,6 +9,7 @@ public class Player {
 	
 	public Player(String username) {
 		this.username = username;
+		System.out.println(username);
 	}
 	
 	boolean myTurn() {

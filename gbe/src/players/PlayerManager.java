@@ -1,7 +1,7 @@
-package gbe.players;
+package players;
 
 import java.util.ArrayList;
-import gbe.engine.*;
+import engine.*;
 
 public class PlayerManager {
 	ArrayList<Player> players; // ArrayList to include unlimited number of players (maybe people can log in and log out?
