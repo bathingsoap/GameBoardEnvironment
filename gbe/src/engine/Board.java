@@ -1,8 +1,7 @@
 package engine;
+import javax.swing.JPanel;
 
 public interface Board {
-	//String boardType;
-	//int[][] board;
-	
-	Board createBoard(String boardType);
+
+	public JPanel drawBoard();
 }

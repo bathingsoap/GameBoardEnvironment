@@ -1,8 +1,4 @@
-package environment;
-
-import players.*;
-import gui.*;
-import engine.*;
+package engine;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,8 +9,10 @@ public class Driver extends JFrame{
 	JFrame frame = new JFrame("Game Board Environment");
 	String[] availableGames = {"Gomoku", "Othello", "Battleship","Chutes and Ladders"};
 	private JButton playButton;
+	private JComboBox<String> games;
+	private String gameType;
 
-	public Driver(){
+	public Driver() {
 		super();
 		frame.setSize(500, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,7 +23,8 @@ public class Driver extends JFrame{
 		JLabel mainLabel = new JLabel("Pick a game");
 		mainLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		mainPanel.add(mainLabel);
-		mainPanel.add(new JComboBox<String>(availableGames));
+		games = new JComboBox<String>(availableGames);
+		mainPanel.add(games);
 		JLabel playerone = new JLabel("Player One");
 		JLabel playertwo = new JLabel("Player Two");
 		playerone.setHorizontalAlignment(SwingConstants.CENTER);
@@ -35,20 +34,31 @@ public class Driver extends JFrame{
 		mainPanel.add(new JTextField());
 		mainPanel.add(new JTextField());
 		mainPanel.add(new JPanel());
-		this.playButton = new JButton("Play");
+		playButton = new JButton("Play");
 		mainPanel.add(playButton);
 		mainPanel.setPreferredSize(new Dimension(500,500));
 		frame.add(mainPanel);
 		frame.setVisible(true);
 
-
+		//Play button -> create new Game
 		playButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JFrame gameframe = new JFrame("Game");
+				BoardFactory boardFactory = new BoardFactory();
+				JFrame gameframe = new JFrame(gameType);
 				gameframe.setDefaultCloseOperation(gameframe.DISPOSE_ON_CLOSE);
 				gameframe.setSize(500, 500);
+				gameframe.add(boardFactory.createBoard(gameType));
 				gameframe.setVisible(true);
+			}
+		});
+
+		//Get the Game selected
+		games.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JComboBox cb = (JComboBox)e.getSource();
+				gameType = (String)cb.getSelectedItem();
 			}
 		});
 	}
