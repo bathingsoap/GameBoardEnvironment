@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Driver extends JFrame{
 	JFrame frame = new JFrame("Game Board Environment");
-	String[] availableGames = {"Gomoku", "Othello", "Battleship","Memory"};
+	String[] availableGames = {"Gomoku", "Othello", "Chutes and Ladders","Memory"};
 	private JButton playButton;
 	private JComboBox<String> games;
 	private String gameType;
@@ -20,7 +20,7 @@ public class Driver extends JFrame{
 
 	public void mainMenu(){
 		JPanel mainPanel = new JPanel(new GridLayout(4,2));
-		JLabel mainLabel = new JLabel("Pick a game");
+		JLabel mainLabel = new JLabel("Pick a game:");
 		mainLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		mainPanel.add(mainLabel);
 		games = new JComboBox<String>(availableGames);

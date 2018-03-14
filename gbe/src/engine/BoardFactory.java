@@ -18,6 +18,12 @@ public class BoardFactory {
 			case "Memory":
 				newBoard = new MemoryBoard().drawBoard();
 				break;
+//			case "Gomoku":
+//				newBoard = new GomokuBoard().drawBoard();
+//				break;
+//			case "Chutes and Ladders":
+//				newBoard = new CLBoard().drawBoard();
+//				break;
 			default:
 				break;
 		}
