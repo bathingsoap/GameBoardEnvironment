@@ -2,6 +2,7 @@ package game;
 import java.awt.event.ActionListener;
 import java.util.*;
 
+import com.sun.codemodel.internal.JOp;
 import engine.Board;
 import players.*;
 import javax.swing.*;
@@ -17,6 +18,7 @@ public class MemoryBoard implements Board {
     Player p1;
     Player p2;
     int moveCounter;
+    JOptionPane winnerWindow;
 
     public MemoryBoard(){
         p1 = new Player("player1");
@@ -25,6 +27,7 @@ public class MemoryBoard implements Board {
         this.invisibleVal = new HashMap<JButton, String>();
         this.moveCounter = 0;
         this.loggedMoves = new ArrayList<Integer>();
+        JOptionPane winnerWindow;
 
     }
 
@@ -92,7 +95,7 @@ public class MemoryBoard implements Board {
             checkWinner();
             return true;
         }else{
-            System.out.println("Current player did not make a match. Switching turns..."); 
+            System.out.println("Current player did not make a match. Switching turns...");
             buttons[first_row][first_col].setText("");
             buttons[first_row][first_col].setEnabled(true);
             buttons[second_row][second_col].setText("");
@@ -104,13 +107,19 @@ public class MemoryBoard implements Board {
     public boolean checkWinner(){
         if (this.availableCards == 0){
             if (this.pm.score.get(p1) > this.pm.score.get(p2)){
-                System.out.println("Player 1 has won with a score of: " + this.pm.score.get(p1) + " . While " +
+//                System.out.println("Player 1 has won with a score of: " + this.pm.score.get(p1) + " . While " +
+//                        "Player 2 has a score of: " + this.pm.score.get(p2));
+                JOptionPane.showMessageDialog(null, "Player 1 has won with a score of: " + this.pm.score.get(p1) + " . While " +
                         "Player 2 has a score of: " + this.pm.score.get(p2));
+
                 return true;
             }
             else if (this.pm.score.get(p2) > this.pm.score.get(p1)) {
-                System.out.println("Player 2 has won with a score of: " + this.pm.score.get(p2) + " . While " +
+//                System.out.println("Player 2 has won with a score of: " + this.pm.score.get(p2) + " . While " +
+//                        "Player 1 has a score of: " + this.pm.score.get(p1));
+                JOptionPane.showMessageDialog(null, "Player 2 has won with a score of: " + this.pm.score.get(p2) + " . While " +
                         "Player 1 has a score of: " + this.pm.score.get(p1));
+
                 return true;
             }
             else {
