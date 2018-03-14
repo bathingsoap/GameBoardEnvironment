@@ -1,5 +1,6 @@
 package engine;
 import game.OthelloBoard;
+import game.MemoryBoard;
 
 import javax.swing.JPanel;
 
@@ -13,6 +14,9 @@ public class BoardFactory {
 		switch (gameType) {
 			case "Othello":
 				newBoard = new OthelloBoard().drawBoard();
+				break;
+			case "Memory":
+				newBoard = new MemoryBoard().drawBoard();
 				break;
 			default:
 				break;

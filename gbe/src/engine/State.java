@@ -11,12 +11,10 @@ public abstract class State {
 	Board board;
 	Player playerTurn;
 	HashMap<Player, Integer> score;
-	Timer clock;
-	
-	
-	public State() {
-		
-	}
 
-//	public updateState(){}
+	
+	public State(){
+	}
+	public abstract Player getCurrentTurn();
+	public abstract void makeMove();
 }

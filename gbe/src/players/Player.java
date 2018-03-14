@@ -2,17 +2,26 @@ package players;
 
 public class Player {
 
-	String username;
+	public String username;
 	boolean isTurn;
-	int Victories;
-	int Defeats;
+	int victories;
+	int defeats;
 	
 	public Player(String username) {
 		this.username = username;
-		System.out.println(username);
+		this.victories = 0;
+		this.defeats = 0;
+//		System.out.println(username);
 	}
 	
-	boolean myTurn() {
-		return this.isTurn;
+	public void myTurn() {this.isTurn = true;
+	}
+
+	public void notTurn(){
+		this.isTurn = false;
+		}
+
+	public boolean isTurn(){
+		return this.isTurn; 
 	}
 }

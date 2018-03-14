@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Driver extends JFrame{
 	JFrame frame = new JFrame("Game Board Environment");
-	String[] availableGames = {"Gomoku", "Othello", "Battleship","Chutes and Ladders"};
+	String[] availableGames = {"Gomoku", "Othello", "Battleship","Memory"};
 	private JButton playButton;
 	private JComboBox<String> games;
 	private String gameType;
