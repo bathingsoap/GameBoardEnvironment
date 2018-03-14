@@ -1,9 +1,11 @@
 package players;
 
+import players.*;
 import java.util.ArrayList;
 import engine.*;
 
 public class PlayerManager {
+	Player[] players;
 	public Player p1; // ArrayList to include unlimited number of players (maybe people can log in and log out?
 	public Player p2;
 	public Player currentPlayer;
@@ -12,6 +14,9 @@ public class PlayerManager {
 		this.p1 = p1;
 		this.p2 = p2;
 		this.currentPlayer = p1;
+		p1.isTurn = true;
+		p2.isTurn = false;
+
 	}
 
 	public Player swapTurn(){

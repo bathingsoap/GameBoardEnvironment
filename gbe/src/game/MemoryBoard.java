@@ -11,9 +11,9 @@ import java.awt.event.*;
 public class MemoryBoard implements Board {
     JButton[][] buttons = new JButton[4][4];
     private Map<JButton, String> invisibleVal;
-//    static PlayerManager pm;
+    PlayerManager pm;
     ArrayList<Integer> loggedMoves;
-    Player currentPlayer;
+//    Player currentPlayer;
     Player p1;
     Player p2;
     int moveCounter;
@@ -21,10 +21,7 @@ public class MemoryBoard implements Board {
     public MemoryBoard(){
         p1 = new Player("player1");
         p2 = new Player("player2");
-//        PlayerManager pm = new PlayerManager(p1, p2);
-        this.p1.myTurn(); //player 1 first
-        this.p2.notTurn(); //player 2 second
-        this.currentPlayer = this.p1;
+        this.pm = new PlayerManager(p1, p2);
         this.invisibleVal = new HashMap<JButton, String>();
         this.moveCounter = 0;
         this.loggedMoves = new ArrayList<Integer>();
@@ -67,26 +64,26 @@ public class MemoryBoard implements Board {
         return game;
     }
 
-    public void swapTurn(){
-        if (this.currentPlayer == this.p1){
-            this.p1.notTurn();
-            this.p2.myTurn();
-            this.currentPlayer = this.p2;
-        }
-        else{
-            this.p2.notTurn();
-            this.p1.myTurn();
-            this.currentPlayer = this.p1;
-        }
-    }
+//    public void swapTurn(){
+//        if (this.pm.currentPlayer == this.p1){
+//            this.p1.notTurn();
+//            this.p2.myTurn();
+//            this.pm.currentPlayer = this.p2;
+//        }
+//        else{
+//            this.p2.notTurn();
+//            this.p1.myTurn();
+//            this.pm.currentPlayer = this.p1;
+//        }
+//    }
 
     public void switchTurnHelper(){
         if (this.moveCounter %2 == 0 && isMatch()){
-            System.out.println("Player: " + this.currentPlayer.username + " has made a match. It is still his turn. ");
+            System.out.println("Player: " + this.pm.currentPlayer.username + " has made a match. It is still his turn. ");
         }
         else{
-            System.out.println(this.currentPlayer.username + " has not made a match. Switching turns. ");
-            swapTurn();
+            System.out.println(this.pm.currentPlayer.username + " has not made a match. Switching turns. ");
+            pm.swapTurn();
         }
         this.loggedMoves.clear();
     }
@@ -137,7 +134,7 @@ public class MemoryBoard implements Board {
                 if (moveCounter >= 2 && moveCounter %2 == 0){
                     switchTurnHelper();
                 }
-                }
+            }
             if (a.getSource() == buttons[0][2]){
                 String buttonVal = invisibleVal.get(a.getSource());
                 buttons[0][2].setEnabled(false);
