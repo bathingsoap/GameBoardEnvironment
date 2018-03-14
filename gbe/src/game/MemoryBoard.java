@@ -19,6 +19,7 @@ public class MemoryBoard implements Board {
     Player p2;
     int moveCounter;
     JOptionPane winnerWindow;
+    JFrame gameframe;
 
     public MemoryBoard(){
         p1 = new Player("player1");
@@ -31,9 +32,29 @@ public class MemoryBoard implements Board {
 
     }
 
-    public JPanel drawBoard() {
+    public void drawBoard(String gameType) {
+        gameframe = new JFrame(gameType);
+        gameframe.setLocation(500, 200);
+        gameframe.setDefaultCloseOperation(gameframe.DISPOSE_ON_CLOSE);
+        gameframe.setSize(600, 500);
+
         JPanel game = new JPanel(new GridLayout(4,4));
-        game.setPreferredSize(new Dimension(500,500));
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel menu = new JPanel(new BorderLayout());
+
+        gameframe.add(mainPanel);
+        JLabel player1 = new JLabel(this.pm.p1.username + "\n Score: " + this.pm.score.get(p1));
+        player1.setHorizontalAlignment(SwingConstants.CENTER);
+        mainPanel.add(player1);
+        mainPanel.setPreferredSize(new Dimension(325, 425));
+
+        menu.setPreferredSize(new Dimension(300,50));
+        game.setPreferredSize(new Dimension(300, 300));
+
+        gameframe.add(menu, BorderLayout.NORTH);
+        gameframe.add(game, BorderLayout.SOUTH);
+
+//        game.setPreferredSize(new Dimension(500,500));
         for(int i = 0; i < 4; i++)
         {
             for(int j = 0; j < 4; j++)
@@ -64,7 +85,9 @@ public class MemoryBoard implements Board {
         this.invisibleVal.put(buttons[2][3], "G");
         this.invisibleVal.put(buttons[3][2], "H");
         this.invisibleVal.put(buttons[3][3], "H");
-        return game;
+        gameframe.add(game);
+        gameframe.setVisible(true);
+        return;
     }
 
 

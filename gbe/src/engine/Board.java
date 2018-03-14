@@ -3,5 +3,5 @@ import javax.swing.JPanel;
 
 public interface Board {
 
-	public JPanel drawBoard();
+	public void drawBoard(String boardType);
 }

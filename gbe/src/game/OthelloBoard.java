@@ -11,7 +11,7 @@ public class OthelloBoard implements Board {
     public OthelloBoard(){
 
     }
-    public JPanel drawBoard() {
+    public void drawBoard(String boardType) {
         JPanel game = new JPanel(new GridLayout(3,3));
         game.setPreferredSize(new Dimension(500,500));
         for(int i = 0; i < 3; i++)
@@ -26,6 +26,6 @@ public class OthelloBoard implements Board {
                 game.add(buttons[i][j]);
             }
         }
-        return game;
+        return;
     }
 }

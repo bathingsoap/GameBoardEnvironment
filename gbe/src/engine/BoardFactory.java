@@ -9,14 +9,13 @@ public class BoardFactory {
 
 	}
 
-	public JPanel createBoard(String gameType){
-		JPanel newBoard = null;
+	public void createBoard(String gameType){
 		switch (gameType) {
 			case "Othello":
-				newBoard = new OthelloBoard().drawBoard();
+				new OthelloBoard().drawBoard(gameType);
 				break;
 			case "Memory":
-				newBoard = new MemoryBoard().drawBoard();
+				new MemoryBoard().drawBoard(gameType);
 				break;
 //			case "Gomoku":
 //				newBoard = new GomokuBoard().drawBoard();
@@ -27,6 +26,6 @@ public class BoardFactory {
 			default:
 				break;
 		}
-		return newBoard;
+		return ;
 	}
 }
