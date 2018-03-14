@@ -13,7 +13,7 @@ public class MemoryBoard implements Board {
     private Map<JButton, String> invisibleVal;
     PlayerManager pm;
     ArrayList<Integer> loggedMoves;
-//    Player currentPlayer;
+    int availableCards = 16;
     Player p1;
     Player p2;
     int moveCounter;
@@ -64,25 +64,13 @@ public class MemoryBoard implements Board {
         return game;
     }
 
-//    public void swapTurn(){
-//        if (this.pm.currentPlayer == this.p1){
-//            this.p1.notTurn();
-//            this.p2.myTurn();
-//            this.pm.currentPlayer = this.p2;
-//        }
-//        else{
-//            this.p2.notTurn();
-//            this.p1.myTurn();
-//            this.pm.currentPlayer = this.p1;
-//        }
-//    }
 
     public void switchTurnHelper(){
         if (this.moveCounter %2 == 0 && isMatch()){
-            System.out.println("Player: " + this.pm.currentPlayer.username + " has made a match. It is still his turn. ");
+//            System.out.println(this.pm.currentPlayer.username + " has made a match. It is still their turn. ");
         }
         else{
-            System.out.println(this.pm.currentPlayer.username + " has not made a match. Switching turns. ");
+//            System.out.println(this.pm.currentPlayer.username + " has not made a match. Switching turns...");
             pm.swapTurn();
         }
         this.loggedMoves.clear();
@@ -96,10 +84,15 @@ public class MemoryBoard implements Board {
         String first_choice = invisibleVal.get(buttons[first_row][first_col]);
         String second_choice = invisibleVal.get(buttons[second_row][second_col]);
         if (first_choice == second_choice){
+            this.availableCards = this.availableCards - 2;
             buttons[first_row][first_col].setVisible(false);
             buttons[second_row][second_col].setVisible(false);
+            pm.scorePoint(pm.currentPlayer);
+            System.out.println("Current player has made a match, it is still their turn! Their score is: " + this.pm.score.get(pm.currentPlayer));
+            checkWinner();
             return true;
         }else{
+            System.out.println("Current player did not make a match. Switching turns..."); 
             buttons[first_row][first_col].setText("");
             buttons[first_row][first_col].setEnabled(true);
             buttons[second_row][second_col].setText("");
@@ -108,7 +101,25 @@ public class MemoryBoard implements Board {
         }
     }
 
-
+    public boolean checkWinner(){
+        if (this.availableCards == 0){
+            if (this.pm.score.get(p1) > this.pm.score.get(p2)){
+                System.out.println("Player 1 has won with a score of: " + this.pm.score.get(p1) + " . While " +
+                        "Player 2 has a score of: " + this.pm.score.get(p2));
+                return true;
+            }
+            else if (this.pm.score.get(p2) > this.pm.score.get(p1)) {
+                System.out.println("Player 2 has won with a score of: " + this.pm.score.get(p2) + " . While " +
+                        "Player 1 has a score of: " + this.pm.score.get(p1));
+                return true;
+            }
+            else {
+                System.out.println("Nobody won, it was a tie!");
+                return true;
+            }
+        }
+        return false;
+    }
 
     private class myActionListener implements ActionListener{
         public void actionPerformed(ActionEvent a){

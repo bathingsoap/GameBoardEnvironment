@@ -1,12 +1,13 @@
 package players;
 
 import players.*;
-import java.util.ArrayList;
+import java.util.*;
 import engine.*;
 
 public class PlayerManager {
 	Player[] players;
 	public Player p1; // ArrayList to include unlimited number of players (maybe people can log in and log out?
+	public HashMap<Player, Integer> score = new HashMap<Player, Integer>();
 	public Player p2;
 	public Player currentPlayer;
 
@@ -14,9 +15,16 @@ public class PlayerManager {
 		this.p1 = p1;
 		this.p2 = p2;
 		this.currentPlayer = p1;
+		this.score.put(this.p1, 0);
+		this.score.put(this.p2, 0);
 		p1.isTurn = true;
 		p2.isTurn = false;
 
+	}
+
+	public void scorePoint(Player player){
+		int currentScore = this.score.get(player);
+		this.score.put(player, currentScore+1);
 	}
 
 	public Player swapTurn(){
