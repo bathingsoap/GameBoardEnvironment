@@ -26,9 +26,5 @@ public class BoardFactory {
 			default:
 				break;
 		}
-<<<<<<< HEAD
-=======
-		return ;
->>>>>>> 02c03be068d0ab18e2a47688ac37205b5a1a5d93
 	}
 }

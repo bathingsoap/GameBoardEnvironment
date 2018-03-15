@@ -1,4 +1,5 @@
-package engine;
+package environment;
+import engine.BoardFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -47,15 +48,12 @@ public class Driver extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				BoardFactory boardFactory = new BoardFactory();
-<<<<<<< HEAD
-				boardFactory.createBoard(gameType);
-=======
+
 //				JFrame gameframe = new JFrame(gameType);
 //				gameframe.setDefaultCloseOperation(gameframe.DISPOSE_ON_CLOSE);
 //				gameframe.setSize(500, 500);
 				boardFactory.createBoard(gameType);
 //				gameframe.setVisible(true);
->>>>>>> 02c03be068d0ab18e2a47688ac37205b5a1a5d93
 			}
 		});
 

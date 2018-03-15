@@ -2,7 +2,6 @@ package game;
 import java.awt.event.ActionListener;
 import java.util.*;
 
-import com.sun.codemodel.internal.JOp;
 import engine.Board;
 import players.*;
 import javax.swing.*;
@@ -33,14 +32,10 @@ public class MemoryBoard implements Board {
     }
 
     public void drawBoard(String gameType) {
-<<<<<<< HEAD
-=======
         gameframe = new JFrame(gameType);
         gameframe.setLocation(500, 200);
         gameframe.setDefaultCloseOperation(gameframe.DISPOSE_ON_CLOSE);
         gameframe.setSize(600, 500);
-
->>>>>>> 02c03be068d0ab18e2a47688ac37205b5a1a5d93
         JPanel game = new JPanel(new GridLayout(4,4));
         JPanel mainPanel = new JPanel(new BorderLayout());
         JPanel menu = new JPanel(new BorderLayout());
@@ -88,12 +83,9 @@ public class MemoryBoard implements Board {
         this.invisibleVal.put(buttons[2][3], "G");
         this.invisibleVal.put(buttons[3][2], "H");
         this.invisibleVal.put(buttons[3][3], "H");
-<<<<<<< HEAD
-=======
         gameframe.add(game);
         gameframe.setVisible(true);
         return;
->>>>>>> 02c03be068d0ab18e2a47688ac37205b5a1a5d93
     }
 
 
