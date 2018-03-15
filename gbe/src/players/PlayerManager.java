@@ -30,11 +30,11 @@ public class PlayerManager {
 	public Player swapTurn(){
 		if (this.p1.isTurn){
 			this.p1.notTurn();
-			this.p2.isTurn();
+			this.p2.isTurn = true;
 			this.currentPlayer = this.p2;
 		}
 		else{
-			this.p1.isTurn();
+			this.p1.isTurn = true;
 			this.p2.notTurn();
 			this.currentPlayer = this.p1;
 		}
