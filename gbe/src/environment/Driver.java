@@ -28,6 +28,7 @@ public class Driver extends JFrame{
 		mainLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		mainPanel.add(mainLabel);
 		games = new JComboBox<String>(availableGames);
+		gameType= availableGames[0];
 		mainPanel.add(games);
 		JLabel playerone = new JLabel("Player One");
 		JLabel playertwo = new JLabel("Player Two");

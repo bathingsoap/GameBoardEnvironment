@@ -5,6 +5,7 @@ import engine.Board;
 import players.Player;
 import players.PlayerManager;
 
+
 import javax.swing.*;
 import javax.swing.Timer;
 import java.awt.*;
@@ -28,6 +29,7 @@ public class MemoryBoard implements Board {
     private Timer misMatchTimer;
 
     public MemoryBoard() {
+        statusBar = new StatusBar();
         p1 = new Player("player1");
         p2 = new Player("player2");
         this.pm = new PlayerManager(p1, p2);
@@ -45,9 +47,9 @@ public class MemoryBoard implements Board {
         gameframe.setSize(600, 500);
         JPanel window = new JPanel(new BorderLayout());
         JPanel game = new JPanel(new GridLayout(4, 4));
+        window.setPreferredSize(new Dimension(500, 500));
         window.add(BorderLayout.NORTH, statusBar);
         window.add(BorderLayout.CENTER, game);
-        window.setPreferredSize(new Dimension(500, 500));
         gameframe.add(window);
         java.util.List<Character> letters = Arrays.asList(LETTERS);
         Collections.shuffle(letters);
@@ -64,6 +66,7 @@ public class MemoryBoard implements Board {
                 letterIndex++;
             }
         }
+        gameframe.setVisible(true);
     }
 
 
