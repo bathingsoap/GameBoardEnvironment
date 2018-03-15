@@ -2,23 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8024bd38-c6b9-46e0-82a7-7faa59884170" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/gbe/src/game/GomokuPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/production/GameBoardEnvironment/engine/BoardFactory.class" afterPath="$PROJECT_DIR$/output/production/GameBoardEnvironment/engine/BoardFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/production/GameBoardEnvironment/engine/Piece.class" afterPath="$PROJECT_DIR$/output/production/GameBoardEnvironment/engine/Piece.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/production/GameBoardEnvironment/game/MemoryBoard$OnMisMatchActionListener.class" afterPath="$PROJECT_DIR$/output/production/GameBoardEnvironment/game/MemoryBoard$OnMisMatchActionListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/production/GameBoardEnvironment/game/MemoryBoard$myActionListener.class" afterPath="$PROJECT_DIR$/output/production/GameBoardEnvironment/game/MemoryBoard$myActionListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/production/GameBoardEnvironment/game/MemoryBoard.class" afterPath="$PROJECT_DIR$/output/production/GameBoardEnvironment/game/MemoryBoard.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/production/GameBoardEnvironment/game/OthelloBoard$MyActionListener.class" afterPath="$PROJECT_DIR$/output/production/GameBoardEnvironment/game/OthelloBoard$MyActionListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/production/GameBoardEnvironment/game/OthelloBoard.class" afterPath="$PROJECT_DIR$/output/production/GameBoardEnvironment/game/OthelloBoard.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/production/GameBoardEnvironment/players/PlayerManager.class" afterPath="$PROJECT_DIR$/output/production/GameBoardEnvironment/players/PlayerManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gbe/src/engine/BoardFactory.java" afterPath="$PROJECT_DIR$/gbe/src/engine/BoardFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gbe/src/engine/Piece.java" afterPath="$PROJECT_DIR$/gbe/src/engine/Piece.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gbe/src/game/GomokuBoard.java" afterPath="$PROJECT_DIR$/gbe/src/game/GomokuBoard.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gbe/src/game/GomokuLogic.java" afterPath="$PROJECT_DIR$/gbe/src/game/GomokuLogic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gbe/src/game/GomokuPiece.java" afterPath="$PROJECT_DIR$/gbe/src/game/GomokuPiece.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gbe/src/game/GomokuState.java" afterPath="$PROJECT_DIR$/gbe/src/game/GomokuState.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -445,7 +429,7 @@
       <workItem from="1520981053364" duration="135000" />
       <workItem from="1520981373072" duration="936000" />
       <workItem from="1521006971283" duration="9658000" />
-      <workItem from="1521089511280" duration="1842000" />
+      <workItem from="1521089511280" duration="1856000" />
     </task>
     <task id="LOCAL-00001" summary="Sam Huang: updates first version of Gomoku">
       <created>1520897319026</created>
@@ -454,11 +438,18 @@
       <option name="project" value="LOCAL" />
       <updated>1520897319026</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Sam Huang: updates first version of Gomoku">
+      <created>1521091370178</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1521091370178</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27231000" />
+    <option name="totallyTimeSpent" value="27245000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="23" width="1920" height="1057" extended-state="6" />
