@@ -4,10 +4,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+//import engine.*;
 
 public class Driver extends JFrame{
 	JFrame frame = new JFrame("Game Board Environment");
-	String[] availableGames = {"Gomoku", "Othello", "Chutes and Ladders","Memory"};
+	String[] availableGames = {"Memory", "Othello", "Chutes and Ladders","Gomoku"};
 	private JButton playButton;
 	private JComboBox<String> games;
 	private String gameType;
@@ -39,13 +40,22 @@ public class Driver extends JFrame{
 		mainPanel.setPreferredSize(new Dimension(500,500));
 		frame.add(mainPanel);
 		frame.setVisible(true);
+		frame.setLocation(600, 200);
 
 		//Play button -> create new Game
 		playButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				BoardFactory boardFactory = new BoardFactory();
+<<<<<<< HEAD
 				boardFactory.createBoard(gameType);
+=======
+//				JFrame gameframe = new JFrame(gameType);
+//				gameframe.setDefaultCloseOperation(gameframe.DISPOSE_ON_CLOSE);
+//				gameframe.setSize(500, 500);
+				boardFactory.createBoard(gameType);
+//				gameframe.setVisible(true);
+>>>>>>> 02c03be068d0ab18e2a47688ac37205b5a1a5d93
 			}
 		});
 
