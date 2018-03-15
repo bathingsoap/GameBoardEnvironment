@@ -1,8 +1,10 @@
-package engine;
+//package engine;
+package environment;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import engine.BoardFactory;
 import java.util.ArrayList;
 //import engine.*;
 

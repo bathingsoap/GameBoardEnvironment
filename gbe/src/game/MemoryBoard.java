@@ -43,9 +43,12 @@ public class MemoryBoard implements Board {
         JPanel menu = new JPanel(new BorderLayout());
 
         gameframe.add(mainPanel);
-        JLabel player1 = new JLabel(this.pm.p1.username + "\n Score: " + this.pm.score.get(p1));
-        player1.setHorizontalAlignment(SwingConstants.CENTER);
-        mainPanel.add(player1);
+//        JLabel player1 = new JLabel(this.pm.p1.username + "\n Score: " + this.pm.score.get(p1));
+//        JLabel player2 = new JLabel(this.pm.p2.username + "\n Score: " + this.pm.score.get(p2));
+//        player1.setVisible(true);
+//        player2.setVisible(true);
+//        gameframe.add(player1);
+//        gameframe.add(player2);
         mainPanel.setPreferredSize(new Dimension(325, 425));
 
         menu.setPreferredSize(new Dimension(300,50));
@@ -85,7 +88,6 @@ public class MemoryBoard implements Board {
         this.invisibleVal.put(buttons[2][3], "G");
         this.invisibleVal.put(buttons[3][2], "H");
         this.invisibleVal.put(buttons[3][3], "H");
-        gameframe.add(game);
         gameframe.setVisible(true);
         return;
     }
