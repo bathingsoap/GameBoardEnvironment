@@ -51,12 +51,7 @@ public class Driver extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				BoardFactory boardFactory = new BoardFactory();
-
-//				JFrame gameframe = new JFrame(gameType);
-//				gameframe.setDefaultCloseOperation(gameframe.DISPOSE_ON_CLOSE);
-//				gameframe.setSize(500, 500);
 				boardFactory.createBoard(gameType);
-//				gameframe.setVisible(true);
 			}
 		});
 
