@@ -3,5 +3,6 @@ import javax.swing.JPanel;
 
 public interface Board {
 
-	public void drawBoard(String boardType);
+	void drawBoard(String gameType);
+
 }

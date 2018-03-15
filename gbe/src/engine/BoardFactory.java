@@ -18,14 +18,13 @@ public class BoardFactory {
 				new MemoryBoard().drawBoard(gameType);
 				break;
 //			case "Gomoku":
-//				newBoard = new GomokuBoard().drawBoard();
+//				new GomokuBoard().drawBoard();
 //				break;
 //			case "Chutes and Ladders":
-//				newBoard = new CLBoard().drawBoard();
+//				new CLBoard().drawBoard();
 //				break;
 			default:
 				break;
 		}
-		return ;
 	}
 }

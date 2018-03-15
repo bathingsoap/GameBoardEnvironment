@@ -2,7 +2,6 @@ package game;
 import java.awt.event.ActionListener;
 import java.util.*;
 
-import com.sun.codemodel.internal.JOp;
 import engine.Board;
 import players.*;
 import javax.swing.*;
@@ -37,7 +36,6 @@ public class MemoryBoard implements Board {
         gameframe.setLocation(500, 200);
         gameframe.setDefaultCloseOperation(gameframe.DISPOSE_ON_CLOSE);
         gameframe.setSize(600, 500);
-
         JPanel game = new JPanel(new GridLayout(4,4));
         JPanel mainPanel = new JPanel(new BorderLayout());
         JPanel menu = new JPanel(new BorderLayout());
