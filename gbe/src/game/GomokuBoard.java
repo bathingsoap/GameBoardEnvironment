@@ -3,6 +3,7 @@ package game;
 import engine.Board;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,8 +28,12 @@ public class GomokuBoard extends JFrame implements Board {
         restartButton.addActionListener(actionListener);
         exitButton.addActionListener(actionListener);
         add(buttons, BorderLayout.SOUTH);
-        add(gomokuPanel);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        add(gomokuPanel, BorderLayout.CENTER);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        System.out.println(dim.width + " " + dim.height);
+        System.out.println(getPreferredSize().width + " " + getPreferredSize().height);
+        this.setLocation(dim.width/2-getPreferredSize().width/2, dim.height/2-getPreferredSize().height/2);
         pack();
     }
 
