@@ -1,5 +1,7 @@
 package engine;
+
 import game.CLBoard;
+import game.GomokuBoard;
 import game.OthelloBoard;
 import game.MemoryBoard;
 
@@ -18,11 +20,11 @@ public class BoardFactory {
 			case "Memory":
 				new MemoryBoard().drawBoard(gameType);
 				break;
-//			case "Gomoku":
-//				new GomokuBoard().drawBoard();
-//				break;
 			case "Chutes and Ladders":
 				new CLBoard().drawBoard(gameType);
+				break;
+			case "Gomoku":
+				new GomokuBoard().drawBoard(gameType);
 				break;
 			default:
 				break;
