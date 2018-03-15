@@ -44,9 +44,8 @@ public class MemoryBoard implements Board {
         gameframe = new JFrame(gameType);
         gameframe.setLocation(500, 200);
         gameframe.setDefaultCloseOperation(gameframe.DISPOSE_ON_CLOSE);
-        gameframe.setSize(600, 500);
         JPanel window = new JPanel(new BorderLayout());
-        JPanel game = new JPanel(new GridLayout(4, 4));
+        JPanel game = new JPanel(new GridLayout(4, 4,1,1));
         window.setPreferredSize(new Dimension(500, 500));
         window.add(BorderLayout.NORTH, statusBar);
         window.add(BorderLayout.CENTER, game);
@@ -66,6 +65,7 @@ public class MemoryBoard implements Board {
                 letterIndex++;
             }
         }
+        gameframe.pack();
         gameframe.setVisible(true);
     }
 

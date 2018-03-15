@@ -14,8 +14,7 @@ public class Player {
 //		System.out.println(username);
 	}
 	
-	public void myTurn() {this.isTurn = true;
-	}
+	public void myTurn() {this.isTurn = true;}
 
 	public void notTurn(){
 		this.isTurn = false;

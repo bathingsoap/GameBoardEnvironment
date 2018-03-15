@@ -18,7 +18,6 @@ public class Driver extends JFrame{
 
 	public Driver() {
 		super();
-		frame.setSize(500, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
@@ -36,13 +35,22 @@ public class Driver extends JFrame{
 		playertwo.setHorizontalAlignment(SwingConstants.CENTER);
 		mainPanel.add(playerone);
 		mainPanel.add(playertwo);
-		mainPanel.add(new JTextField());
-		mainPanel.add(new JTextField());
+		JPanel leftTextFieldPanel = new JPanel();
+		JPanel rightTextFieldPanel = new JPanel();
+		JTextField playerOneTextField = new JTextField();
+		playerOneTextField.setPreferredSize(new Dimension(225,20));
+		JTextField playerTwoTextField = new JTextField();
+		playerTwoTextField.setPreferredSize(new Dimension(225,20));
+		leftTextFieldPanel.add(playerOneTextField);
+		rightTextFieldPanel.add(playerTwoTextField);
+		mainPanel.add(leftTextFieldPanel);
+		mainPanel.add(rightTextFieldPanel);
 		mainPanel.add(new JPanel());
 		playButton = new JButton("Play");
 		mainPanel.add(playButton);
 		mainPanel.setPreferredSize(new Dimension(500,500));
 		frame.add(mainPanel);
+		frame.pack();
 		frame.setVisible(true);
 		frame.setLocation(600, 200);
 
