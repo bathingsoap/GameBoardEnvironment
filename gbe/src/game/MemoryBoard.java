@@ -28,7 +28,7 @@ public class MemoryBoard implements Board {
 
     }
 
-    public JPanel drawBoard() {
+    public void drawBoard(String gameType) {
         JPanel game = new JPanel(new GridLayout(4,4));
         game.setPreferredSize(new Dimension(500,500));
         for(int i = 0; i < 4; i++)
@@ -61,7 +61,6 @@ public class MemoryBoard implements Board {
         this.invisibleVal.put(buttons[2][3], "G");
         this.invisibleVal.put(buttons[3][2], "H");
         this.invisibleVal.put(buttons[3][3], "H");
-        return game;
     }
 
 //    public void swapTurn(){
