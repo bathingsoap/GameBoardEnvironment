@@ -32,7 +32,6 @@ public class GomokuPanel extends JPanel implements MouseListener {
     private static int COLS = 15;
 
     GomokuPanel() {
-        System.out.println(turn);
         // --- set bg color ---
         setBackground(new Color(122, 165, 210));
         addMouseListener(this);
@@ -74,8 +73,6 @@ public class GomokuPanel extends JPanel implements MouseListener {
         gomokuLogic.setRows(ROWS);
         gomokuLogic.setCols(COLS);
         getCurrentColor();
-        System.out.println(turn);
-        System.out.println(color);
         gomokuLogic.setCurrentColor(color);
         // --- updates piece
         pieces.get(currentY).get(currentX).setColor(color);
@@ -83,11 +80,8 @@ public class GomokuPanel extends JPanel implements MouseListener {
         gomokuLogic.setPieces(pieces);
 
         // --- Drawing ---
-//        System.out.println(pieces.size() * pieces.get(0).size());
-//        System.out.println((ROWS + 1) * (COLS + 1));
         repaint();
         if (gomokuLogic.boolWin()) {
-            System.out.println("Hello");
             String message = String.format("Congratulation to %s Player!", turn);
             JOptionPane.showMessageDialog(this, message);
             status = true;
@@ -124,12 +118,10 @@ public class GomokuPanel extends JPanel implements MouseListener {
         }
         for (int i = 0; i < pieces.size(); i++) {
             for (int j = 0; j < pieces.get(i).size(); j++) {
-                // i is rows and j is cols
                 int diameter = GomokuPiece.DIAMETER;
                 if (boolPiece(j, i)) {
                     int x = i * GRID_SPAN + MARGIN;
                     int y = j * GRID_SPAN + MARGIN;
-//                    System.out.println(x + " " + y);
                     graphics.setColor(pieces.get(i).get(j).getColor());
                     graphics.fillOval(y - diameter / 2, x - diameter / 2, diameter, diameter);
                 }
@@ -138,7 +130,6 @@ public class GomokuPanel extends JPanel implements MouseListener {
     }
 
     private boolean boolPiece(int x, int y) {
-//        System.out.println(pieces.size());
         return pieces.get(y).get(x).getColor().getAlpha() != new Color(0, 0, 0, 0).getAlpha();
     }
 
@@ -160,14 +151,10 @@ public class GomokuPanel extends JPanel implements MouseListener {
     }
 
     void restartGame() {
-        gomokuState.initStatus();
-        gomokuState.initPieces();
-        gomokuState.initTurn();
+        status = false;
+        gomokuState.resetPiece();
+        turn = "Black";
         repaint();
-    }
-
-    void exitGame() {
-        System.exit(0);
     }
 
     private void getCurrentColor() {

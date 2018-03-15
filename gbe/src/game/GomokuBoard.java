@@ -16,23 +16,26 @@ public class GomokuBoard extends JFrame implements Board {
     private ArrayList<ArrayList<GomokuPiece>> pieces = gomokuState.getPieces();
 
     private Button restartButton = new Button("Restart ");
-    private Button exitButton = new Button("  Exit  ");
 
     public GomokuBoard() {
         setTitle(gameName);
         Panel buttons = new Panel();
         buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
         buttons.add(restartButton);
+        Button exitButton = new Button("  Exit  ");
         buttons.add(exitButton);
         MyActionListener actionListener = new MyActionListener();
         restartButton.addActionListener(actionListener);
-        exitButton.addActionListener(actionListener);
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
         add(buttons, BorderLayout.SOUTH);
         add(gomokuPanel, BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        System.out.println(dim.width + " " + dim.height);
-        System.out.println(getPreferredSize().width + " " + getPreferredSize().height);
         this.setLocation(dim.width/2-getPreferredSize().width/2, dim.height/2-getPreferredSize().height/2);
         pack();
     }
@@ -47,11 +50,10 @@ public class GomokuBoard extends JFrame implements Board {
     private class MyActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+
             Object object = e.getSource();
             if (object == restartButton) {
                 gomokuPanel.restartGame();
-            } else if (object == exitButton) {
-                gomokuPanel.exitGame();
             }
         }
     }
