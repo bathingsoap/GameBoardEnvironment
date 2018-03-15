@@ -13,7 +13,9 @@ public class GomokuBoard extends JFrame implements Board {
     private String gameName;
 	private GomokuPanel gomokuPanel = new GomokuPanel();
     private GomokuState gomokuState = GomokuState.getInstance();
+    private String turn = gomokuState.getTurn();
     private ArrayList<ArrayList<GomokuPiece>> pieces = gomokuState.getPieces();
+    private boolean status = gomokuState.getStatus();
 
     private Button restartButton = new Button("Restart ");
 
@@ -29,6 +31,9 @@ public class GomokuBoard extends JFrame implements Board {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                turn = "Black";
+                gomokuState.resetPiece();
+                status = false;
                 dispose();
             }
         });
