@@ -1,5 +1,6 @@
 package game;
 
+
 import engine.Board;
 import players.Player;
 import players.PlayerManager;
@@ -14,6 +15,7 @@ import java.util.*;
 public class MemoryBoard implements Board {
     private static final Character[] LETTERS = {'A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H'};
     private JButton[][] buttons = new JButton[4][4];
+    private JFrame gameframe;
     private StatusBar statusBar;
     private PlayerManager pm;
     private java.util.List<Integer> loggedMoves;
@@ -26,7 +28,6 @@ public class MemoryBoard implements Board {
     private Timer misMatchTimer;
 
     public MemoryBoard() {
-        statusBar = new StatusBar();
         p1 = new Player("player1");
         p2 = new Player("player2");
         this.pm = new PlayerManager(p1, p2);
@@ -37,12 +38,17 @@ public class MemoryBoard implements Board {
         this.loggedMoves = new ArrayList<Integer>();
     }
 
-    public JPanel drawBoard() {
+    public void drawBoard(String gameType) {
+        gameframe = new JFrame(gameType);
+        gameframe.setLocation(500, 200);
+        gameframe.setDefaultCloseOperation(gameframe.DISPOSE_ON_CLOSE);
+        gameframe.setSize(600, 500);
         JPanel window = new JPanel(new BorderLayout());
         JPanel game = new JPanel(new GridLayout(4, 4));
         window.add(BorderLayout.NORTH, statusBar);
         window.add(BorderLayout.CENTER, game);
         window.setPreferredSize(new Dimension(500, 500));
+        gameframe.add(window);
         java.util.List<Character> letters = Arrays.asList(LETTERS);
         Collections.shuffle(letters);
         int letterIndex = 0;
@@ -58,7 +64,6 @@ public class MemoryBoard implements Board {
                 letterIndex++;
             }
         }
-        return window;
     }
 
 
@@ -165,3 +170,5 @@ public class MemoryBoard implements Board {
         }
     }
 }
+
+
