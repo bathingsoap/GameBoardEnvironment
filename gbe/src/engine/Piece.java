@@ -1,12 +1,8 @@
 package engine;
 
+import java.awt.*;
+
 public interface Piece {
 
-//	private String pieceType;
-//
-//	public Piece(String pT){
-//		this.pieceType = pT;
-//	}
-
-	public Piece createPiece();
+	public void createPiece(int x, int y, Color color);
 }
