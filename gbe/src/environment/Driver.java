@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 //package engine;
 package environment;
-=======
-package environment;
 import engine.BoardFactory;
->>>>>>> dce7ec954539425485c8b203cbe1e4a88d74ee99
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

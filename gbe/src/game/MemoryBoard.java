@@ -1,16 +1,18 @@
 package game;
+
 import java.awt.event.ActionListener;
 import java.util.*;
 
 import engine.Board;
 import players.*;
+
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.*;
 
 public class MemoryBoard implements Board {
     JButton[][] buttons = new JButton[4][4];
-    private Map<JButton, String> invisibleVal;
     PlayerManager pm;
     ArrayList<Integer> loggedMoves;
     int availableCards = 16;
@@ -18,17 +20,21 @@ public class MemoryBoard implements Board {
     Player p2;
     int moveCounter;
     JOptionPane winnerWindow;
+    private Map<JButton, String> invisibleVal;
+    private Map<JButton, int[]> buttonCoords;
+    private Object lock;
+    private Timer misMatchTimer;
     JFrame gameframe;
 
-    public MemoryBoard(){
+    public MemoryBoard() {
         p1 = new Player("player1");
         p2 = new Player("player2");
         this.pm = new PlayerManager(p1, p2);
+        lock = new Object();
         this.invisibleVal = new HashMap<JButton, String>();
+        this.buttonCoords = new HashMap<JButton, int[]>();
         this.moveCounter = 0;
         this.loggedMoves = new ArrayList<Integer>();
-        JOptionPane winnerWindow;
-
     }
 
     public void drawBoard(String gameType) {
@@ -36,36 +42,18 @@ public class MemoryBoard implements Board {
         gameframe.setLocation(500, 200);
         gameframe.setDefaultCloseOperation(gameframe.DISPOSE_ON_CLOSE);
         gameframe.setSize(600, 500);
-        JPanel game = new JPanel(new GridLayout(4,4));
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        JPanel menu = new JPanel(new BorderLayout());
 
-        gameframe.add(mainPanel);
-//        JLabel player1 = new JLabel(this.pm.p1.username + "\n Score: " + this.pm.score.get(p1));
-//        JLabel player2 = new JLabel(this.pm.p2.username + "\n Score: " + this.pm.score.get(p2));
-//        player1.setVisible(true);
-//        player2.setVisible(true);
-//        gameframe.add(player1);
-//        gameframe.add(player2);
-        mainPanel.setPreferredSize(new Dimension(325, 425));
-
-        menu.setPreferredSize(new Dimension(300,50));
-        game.setPreferredSize(new Dimension(300, 300));
-
-        gameframe.add(menu, BorderLayout.NORTH);
-        gameframe.add(game, BorderLayout.SOUTH);
-
-//        game.setPreferredSize(new Dimension(500,500));
-        for(int i = 0; i < 4; i++)
-        {
-            for(int j = 0; j < 4; j++)
-            {
+        JPanel game = new JPanel(new GridLayout(4, 4));
+        game.setPreferredSize(new Dimension(500, 500));
+        gameframe.add(game); 
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
 
                 buttons[i][j] = new JButton();
                 buttons[i][j].setText("");
                 buttons[i][j].setVisible(true);
                 buttons[i][j].addActionListener(new myActionListener());
-
+                buttonCoords.put(buttons[i][j], new int[]{i, j});
                 game.add(buttons[i][j]);
             }
         }
@@ -87,29 +75,24 @@ public class MemoryBoard implements Board {
         this.invisibleVal.put(buttons[3][2], "H");
         this.invisibleVal.put(buttons[3][3], "H");
         gameframe.setVisible(true);
-        return;
+        return ;
     }
 
 
-    public void switchTurnHelper(){
-        if (this.moveCounter %2 == 0 && isMatch()){
-//            System.out.println(this.pm.currentPlayer.username + " has made a match. It is still their turn. ");
-        }
-        else{
-//            System.out.println(this.pm.currentPlayer.username + " has not made a match. Switching turns...");
+    public void switchTurnHelper() {
+        if (moveCounter % 2 != 0 || !isMatch())
             pm.swapTurn();
-        }
         this.loggedMoves.clear();
     }
 
-    public boolean isMatch(){
+    public boolean isMatch() {
         int first_row = loggedMoves.get(0);
         int first_col = loggedMoves.get(1);
         int second_row = loggedMoves.get(2);
         int second_col = loggedMoves.get(3);
         String first_choice = invisibleVal.get(buttons[first_row][first_col]);
         String second_choice = invisibleVal.get(buttons[second_row][second_col]);
-        if (first_choice == second_choice){
+        if (first_choice == second_choice) {
             this.availableCards = this.availableCards - 2;
             buttons[first_row][first_col].setVisible(false);
             buttons[second_row][second_col].setVisible(false);
@@ -117,35 +100,37 @@ public class MemoryBoard implements Board {
             System.out.println("Current player has made a match, it is still their turn! Their score is: " + this.pm.score.get(pm.currentPlayer));
             checkWinner();
             return true;
-        }else{
+        } else {
             System.out.println("Current player did not make a match. Switching turns...");
-            buttons[first_row][first_col].setText("");
+            misMatchTimer = new Timer(500, new OnMisMatchActionListener(buttons[first_row][first_col], buttons[second_row][second_col]));
+            misMatchTimer.setRepeats(false);
+            misMatchTimer.start();
+            //new Timer(1, new OnMisMatchActionListener(buttons[first_row][first_col], buttons[second_row][second_col])).start();
+            /*buttons[first_row][first_col].setText("");
             buttons[first_row][first_col].setEnabled(true);
             buttons[second_row][second_col].setText("");
-            buttons[second_row][second_col].setEnabled(true);
+            buttons[second_row][second_col].setEnabled(true);*/
             return false;
         }
     }
 
-    public boolean checkWinner(){
-        if (this.availableCards == 0){
-            if (this.pm.score.get(p1) > this.pm.score.get(p2)){
+    public boolean checkWinner() {
+        if (this.availableCards == 0) {
+            if (this.pm.score.get(p1) > this.pm.score.get(p2)) {
 //                System.out.println("Player 1 has won with a score of: " + this.pm.score.get(p1) + " . While " +
 //                        "Player 2 has a score of: " + this.pm.score.get(p2));
                 JOptionPane.showMessageDialog(null, "Player 1 has won with a score of: " + this.pm.score.get(p1) + " . While " +
                         "Player 2 has a score of: " + this.pm.score.get(p2));
 
                 return true;
-            }
-            else if (this.pm.score.get(p2) > this.pm.score.get(p1)) {
+            } else if (this.pm.score.get(p2) > this.pm.score.get(p1)) {
 //                System.out.println("Player 2 has won with a score of: " + this.pm.score.get(p2) + " . While " +
 //                        "Player 1 has a score of: " + this.pm.score.get(p1));
                 JOptionPane.showMessageDialog(null, "Player 2 has won with a score of: " + this.pm.score.get(p2) + " . While " +
                         "Player 1 has a score of: " + this.pm.score.get(p1));
 
                 return true;
-            }
-            else {
+            } else {
                 System.out.println("Nobody won, it was a tie!");
                 return true;
             }
@@ -153,184 +138,40 @@ public class MemoryBoard implements Board {
         return false;
     }
 
-    private class myActionListener implements ActionListener{
-        public void actionPerformed(ActionEvent a){
-            if (a.getSource() == buttons[0][0]){
-                String buttonVal = invisibleVal.get(a.getSource());
-                buttons[0][0].setEnabled(false);
-                buttons[0][0].setText(buttonVal);
-                moveCounter++;
-                loggedMoves.add(0);
-                loggedMoves.add(0);
-                if (moveCounter >= 2 && moveCounter %2 == 0){
-                    switchTurnHelper();
-                }
-            }
+    private class OnMisMatchActionListener implements ActionListener {
+        private JButton a, b;
 
-            if (a.getSource() == buttons[0][1]){
-                String buttonVal = invisibleVal.get(a.getSource());
-                buttons[0][1].setEnabled(false);
-                buttons[0][1].setText(buttonVal);
-                moveCounter++;
-                loggedMoves.add(0);
-                loggedMoves.add(1);
-                if (moveCounter >= 2 && moveCounter %2 == 0){
-                    switchTurnHelper();
-                }
-            }
-            if (a.getSource() == buttons[0][2]){
-                String buttonVal = invisibleVal.get(a.getSource());
-                buttons[0][2].setEnabled(false);
-                buttons[0][2].setText(buttonVal);
-                moveCounter++;
-                loggedMoves.add(0);
-                loggedMoves.add(2);
-                if (moveCounter >= 2 && moveCounter %2 == 0){
-                    switchTurnHelper();
-                }
+        public OnMisMatchActionListener(JButton a, JButton b)
+        {
+            this.a = a;
+            this.b = b;
+        }
 
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            synchronized (lock)
+            {
+                a.setText("");
+                a.setEnabled(true);
+                b.setText("");
+                b.setEnabled(true);
             }
-            if (a.getSource() == buttons[0][3]){
-                String buttonVal = invisibleVal.get(a.getSource());
-                buttons[0][3].setEnabled(false);
-                buttons[0][3].setText(buttonVal);
-                moveCounter++;
-                loggedMoves.add(0);
-                loggedMoves.add(3);
-                if (moveCounter >= 2 && moveCounter %2 == 0){
-                    switchTurnHelper();
-                }
+        }
+    }
 
-            }
-            if (a.getSource() == buttons[1][0]){
-                String buttonVal = invisibleVal.get(a.getSource());
-                buttons[1][0].setEnabled(false);
-                buttons[1][0].setText(buttonVal);
+    private class myActionListener implements ActionListener {
+        public void actionPerformed(ActionEvent a) {
+            synchronized (lock)
+            {
+                JButton button = (JButton) a.getSource();
+                int[] coords = buttonCoords.get(button);
+                String buttonVal = invisibleVal.get(button);
+                button.setEnabled(false);
+                button.setText(buttonVal);
                 moveCounter++;
-                loggedMoves.add(1);
-                loggedMoves.add(0);
-                if (moveCounter >= 2 && moveCounter %2 == 0){
-                    switchTurnHelper();
-                }
-            }
-            if (a.getSource() == buttons[1][1]){
-                String buttonVal = invisibleVal.get(a.getSource());
-                buttons[1][1].setEnabled(false);
-                buttons[1][1].setText(buttonVal);
-                moveCounter++;
-                loggedMoves.add(1);
-                loggedMoves.add(1);
-                if (moveCounter >= 2 && moveCounter %2 == 0){
-                    switchTurnHelper();
-                }
-            }
-            if (a.getSource() == buttons[1][2]){
-                String buttonVal = invisibleVal.get(a.getSource());
-                buttons[1][2].setEnabled(false);
-                buttons[1][2].setText(buttonVal);
-                moveCounter++;
-                loggedMoves.add(1);
-                loggedMoves.add(2);
-                if (moveCounter >= 2 && moveCounter %2 == 0){
-                    switchTurnHelper();
-                }
-            }
-            if (a.getSource() == buttons[1][3]){
-                String buttonVal = invisibleVal.get(a.getSource());
-                buttons[1][3].setEnabled(false);
-                buttons[1][3].setText(buttonVal);
-                moveCounter++;
-                loggedMoves.add(1);
-                loggedMoves.add(3);
-                if (moveCounter >= 2 && moveCounter %2 == 0){
-                    switchTurnHelper();
-                }
-            }
-            if (a.getSource() == buttons[2][0]){
-                String buttonVal = invisibleVal.get(a.getSource());
-                buttons[2][0].setEnabled(false);
-                buttons[2][0].setText(buttonVal);
-                moveCounter++;
-                loggedMoves.add(2);
-                loggedMoves.add(0);
-                if (moveCounter >= 2 && moveCounter %2 == 0){
-                    switchTurnHelper();
-                }
-            }
-            if (a.getSource() == buttons[2][1]){
-                String buttonVal = invisibleVal.get(a.getSource());
-                buttons[2][1].setEnabled(false);
-                buttons[2][1].setText(buttonVal);
-                moveCounter++;
-                loggedMoves.add(2);
-                loggedMoves.add(1);
-                if (moveCounter >= 2 && moveCounter %2 == 0){
-                    switchTurnHelper();
-                }
-            }
-            if (a.getSource() == buttons[2][2]){
-                String buttonVal = invisibleVal.get(a.getSource());
-                buttons[2][2].setEnabled(false);
-                buttons[2][2].setText(buttonVal);
-                moveCounter++;
-                loggedMoves.add(2);
-                loggedMoves.add(2);
-                if (moveCounter >= 2 && moveCounter %2 == 0){
-                    switchTurnHelper();
-                }
-            }
-            if (a.getSource() == buttons[2][3]){
-                String buttonVal = invisibleVal.get(a.getSource());
-                buttons[2][3].setEnabled(false);
-                buttons[2][3].setText(buttonVal);
-                moveCounter++;
-                loggedMoves.add(2);
-                loggedMoves.add(3);
-                if (moveCounter >= 2 && moveCounter %2 == 0){
-                    switchTurnHelper();
-                }
-            }
-            if (a.getSource() == buttons[3][0]){
-                String buttonVal = invisibleVal.get(a.getSource());
-                buttons[3][0].setEnabled(false);
-                buttons[3][0].setText(buttonVal);
-                moveCounter++;
-                loggedMoves.add(3);
-                loggedMoves.add(0);
-                if (moveCounter >= 2 && moveCounter %2 == 0){
-                    switchTurnHelper();
-                }
-            }
-            if (a.getSource() == buttons[3][1]){
-                String buttonVal = invisibleVal.get(a.getSource());
-                buttons[3][1].setEnabled(false);
-                buttons[3][1].setText(buttonVal);
-                moveCounter++;
-                loggedMoves.add(3);
-                loggedMoves.add(1);
-                if (moveCounter >= 2 && moveCounter %2 == 0){
-                    switchTurnHelper();
-                }
-            }
-            if (a.getSource() == buttons[3][2]){
-                String buttonVal = invisibleVal.get(a.getSource());
-                buttons[3][2].setEnabled(false);
-                buttons[3][2].setText(buttonVal);
-                moveCounter++;
-                loggedMoves.add(3);
-                loggedMoves.add(2);
-                if (moveCounter >= 2 && moveCounter %2 == 0){
-                    switchTurnHelper();
-                }
-            }
-            if (a.getSource() == buttons[3][3]){
-                String buttonVal = invisibleVal.get(a.getSource());
-                buttons[3][3].setEnabled(false);
-                buttons[3][3].setText(buttonVal);
-                moveCounter++;
-                loggedMoves.add(3);
-                loggedMoves.add(3);
-                if (moveCounter >= 2 && moveCounter %2 == 0){
+                loggedMoves.add(coords[0]);
+                loggedMoves.add(coords[1]);
+                if (moveCounter >= 2 && moveCounter % 2 == 0) {
                     switchTurnHelper();
                 }
             }
