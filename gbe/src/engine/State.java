@@ -17,5 +17,6 @@ public abstract class State {
 	}
 
 	public abstract Player getCurrentTurn();
-	public abstract void makeMove();
+	public abstract void makeMove(int x, int y);
+	public abstract void update(int x, int y);
 }

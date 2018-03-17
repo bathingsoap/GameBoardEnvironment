@@ -45,7 +45,7 @@ public class MemoryBoard implements Board {
         gameframe.setLocation(500, 200);
         gameframe.setDefaultCloseOperation(gameframe.DISPOSE_ON_CLOSE);
         JPanel window = new JPanel(new BorderLayout());
-        JPanel game = new JPanel(new GridLayout(4, 4,1,1));
+        JPanel game = new JPanel(new GridLayout(4, 4,2,2));
         window.setPreferredSize(new Dimension(500, 500));
         window.add(BorderLayout.NORTH, statusBar);
         window.add(BorderLayout.CENTER, game);

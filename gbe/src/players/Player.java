@@ -6,6 +6,7 @@ public class Player {
 	boolean isTurn;
 	int victories;
 	int defeats;
+	Object playerPiece;
 	
 	public Player(String username) {
 		this.username = username;
@@ -22,5 +23,13 @@ public class Player {
 
 	public boolean isTurn(){
 		return this.isTurn; 
+	}
+
+	public void setPlayerPiece(Object piece){
+		playerPiece = piece;
+	}
+
+	public Object getPlayerPiece(){
+		return playerPiece;
 	}
 }

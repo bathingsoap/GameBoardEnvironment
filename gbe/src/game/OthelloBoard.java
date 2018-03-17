@@ -1,8 +1,6 @@
 package game;
 
 import engine.Board;
-import players.Player;
-import players.PlayerManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,13 +11,12 @@ import java.awt.event.ActionListener;
 public class OthelloBoard implements Board {
     JButton[][] buttons = new JButton[8][8];
     JFrame frame;
-    Player p1; Player p2;
-    PlayerManager pm;
+    OthelloState state;
+    OthelloLogic logic;
 
     public OthelloBoard() {
-        p1 = new Player("player1");
-        p2 = new Player("player2");
-        this.pm = new PlayerManager(p1, p2);
+        state = new OthelloState();
+        logic = new OthelloLogic(state);
     }
 
     public void drawBoard(String gameType) {
@@ -39,7 +36,7 @@ public class OthelloBoard implements Board {
         for (int i = 0; i < 8; i++) { // row
             for (int j = 0; j < 8; j++) { // col
                 JButton button = new JButton();
-                button.setText(("[" + i + "," + j + "]"));
+                //button.setText(("[" + i + "," + j + "]"));
                 button.setForeground(Color.white);
                 if (i == 3 && j == 3 || i == 4 && j == 4) {
                     button.setBackground(Color.white);
@@ -73,8 +70,18 @@ public class OthelloBoard implements Board {
                     if (buttons[row][col] == click) {
                         k = row;
                         l = col;
-                        System.out.println("[" + k + "," + l + "]");
-                        click.setBackground(Color.red);
+                        if(!logic.checkMove(col, row)){
+                            JOptionPane.showMessageDialog(null, "Invalid move");
+                        } else {
+                            state.update(col, row);
+                            if(!state.flip.isEmpty()){
+                                for(int i = 0; i < state.flip.size(); i++){
+                                    buttons[state.flip.get(i).get(0)][state.flip.get(i).get(1)].setBackground(state.getColor((String) state.getCurrentTurn().getPlayerPiece()));
+                                }
+                            }
+                            state.flip.clear();
+                            state.pm.swapTurn();
+                        }
                         break;
                     }
                 }
