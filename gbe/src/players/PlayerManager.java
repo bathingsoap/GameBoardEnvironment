@@ -5,7 +5,7 @@ import java.util.*;
 import engine.*;
 
 public class PlayerManager {
-	Player[] players;
+	Player[] players = new Player[2];
 	public Player p1; // ArrayList to include unlimited number of players (maybe people can log in and log out?
 	public HashMap<Player, Integer> score = new HashMap<Player, Integer>();
 	public Player p2;
@@ -19,6 +19,8 @@ public class PlayerManager {
 		this.score.put(this.p2, 0);
 		p1.isTurn = true;
 		p2.isTurn = false;
+                players[0] = p1;
+                players[1] = p2;
 
 	}
 
@@ -42,7 +44,9 @@ public class PlayerManager {
 	}
 
 
-
+        public Player[] getPlayers(){
+            return players;
+        }
 //	void updateState(BoardFactory bf, Player p) {
 //	}
 
