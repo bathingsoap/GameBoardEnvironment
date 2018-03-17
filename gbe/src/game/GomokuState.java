@@ -41,11 +41,11 @@ public class GomokuState {
 
     // --- init functions ---
 
-    void initTurn() {
+    private void initTurn() {
     		turn = "Black";
     }
     
-    void initPieces() {
+    private void initPieces() {
         for (int i = 0; i < 16; i++) {
             ArrayList<GomokuPiece> arrayList = new ArrayList<>();
             for (int j = 0; j < 16; j++) {
@@ -57,7 +57,15 @@ public class GomokuState {
         }
     }
     
-    void initStatus() {
+    private void initStatus() {
     		status = false;
+    }
+
+    void resetPiece() {
+        for (ArrayList<GomokuPiece> piece : pieces) {
+            for (GomokuPiece aPiece : piece) {
+                aPiece.setColor(new Color(0, 0, 0, 0));
+            }
+        }
     }
 }

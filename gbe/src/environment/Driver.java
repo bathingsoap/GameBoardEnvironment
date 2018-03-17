@@ -18,6 +18,7 @@ public class Driver extends JFrame{
 
 	public Driver() {
 		super();
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
@@ -52,7 +53,8 @@ public class Driver extends JFrame{
 		frame.add(mainPanel);
 		frame.pack();
 		frame.setVisible(true);
-		frame.setLocation(600, 200);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		frame.setLocation(dim.width/2-250, dim.height/2-250);
 
 		//Play button -> create new Game
 		playButton.addActionListener(new ActionListener() {
