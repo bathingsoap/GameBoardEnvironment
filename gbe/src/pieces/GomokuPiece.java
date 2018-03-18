@@ -36,7 +36,7 @@ public class GomokuPiece implements Piece {
         this.color = color;
     }
 
-	public static int getDiameter() {
+    public static int getDiameter() {
 		return DIAMETER;
 	}
 
