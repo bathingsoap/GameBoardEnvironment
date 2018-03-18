@@ -41,8 +41,6 @@ public class PlayerManager {
 		return this.currentPlayer;
 	}
 
-
-
 //	void updateState(BoardFactory bf, Player p) {
 //	}
 

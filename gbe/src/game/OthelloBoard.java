@@ -23,8 +23,7 @@ public class OthelloBoard implements Board {
         frame = new JFrame(gameType);
         frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
         frame.setLocation(500, 100);
-        JPanel game = new JPanel(new GridLayout(4, 4));
-        game = new JPanel(new GridLayout(8, 8));
+        JPanel game = new JPanel(new GridLayout(8, 8));
         game.setPreferredSize(new Dimension(600, 600));
 
         try {
@@ -42,12 +41,17 @@ public class OthelloBoard implements Board {
                     button.setBackground(Color.white);
                     button.setBorder(new LineBorder(Color.black, 1));
                     button.setForeground(Color.black);
+                    button.setText("["+i+","+j+"]");
                 } else if (i == 3 && j == 4 || i == 4 && j == 3) {
                     button.setBackground(Color.black);
                     button.setBorder(new LineBorder(Color.black, 1));
+                    button.setText("["+i+","+j+"]");
+                    button.setForeground(Color.white);
+
                 } else {
                     button.setBackground(new Color(0, 100, 0));
                     button.setBorder(new LineBorder(Color.black, 1));
+                    button.setText("["+i+","+j+"]");
                 }
                 button.setVisible(true);
                 button.addActionListener(new MyActionListener());

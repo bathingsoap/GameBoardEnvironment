@@ -42,50 +42,93 @@ public class OthelloLogic extends GameLogic {
             return false;
         }
         //check row
-        if(0 <= col && col < 8){
-            for(int i = col; i >=0; i--){
+        if(0 <= col && col < 8) {
+            boolean existingNeighbors = false;
+            for (int i = col; i >= 0; i--) {
+                boolean validMoveCondition = gamestate.pieces[row][i - 1].equals(gamestate.getOtherColor(player)) ||
+                        gamestate.pieces[row][i].equals(player);
                 ArrayList<Integer> left_row = new ArrayList<>();
-                if(gamestate.pieces[row][i].equals(player)){
-                    left_row.add(row);
-                    left_row.add(i);
-                    gamestate.row_moves.add(left_row);
-                    valid = true;
-                    break;
+                if (validMoveCondition) {
+                    existingNeighbors = true;
+                    if (existingNeighbors && gamestate.pieces[row][i - 1].equals(gamestate.getOtherColor(player))) {
+                        valid = true;
+                        left_row.add(row);
+                        left_row.add(i - 1);
+                        gamestate.row_moves.add(left_row);
+//                        break;
+                    }
+                    else { // if (existingNeighbors && gamestate.pieces[row][i].equals(player))
+                        valid = true;
+                        left_row.add(row);
+                        left_row.add(i);
+                        gamestate.row_moves.add(left_row);
+                        break;
+                    }
+                }
+                else {
+                    break; // this break is to indicate that a move is invalid if the space has no neighbors.
                 }
             }
-            for(int i = col; i < 8; i++){
+
+            existingNeighbors = false;
+            for (int i = col; i < 8; i++) {
+                boolean validMoveCondition = gamestate.pieces[row][i + 1].equals(gamestate.getOtherColor(player)) ||
+                        gamestate.pieces[row][i].equals(player);
                 ArrayList<Integer> right_row = new ArrayList<>();
-                if(gamestate.pieces[row][i].equals(player)){
-                    right_row.add(row);
-                    right_row.add(i);
-                    gamestate.row_moves.add(right_row);
-                    valid = true;
-                    break;
+                if (validMoveCondition) {
+                    existingNeighbors = true;
+                    if (existingNeighbors && gamestate.pieces[row][i + 1].equals(gamestate.getOtherColor(player))) {
+                        valid = true;
+                        right_row.add(row);
+                        right_row.add(i + 1);
+                        gamestate.row_moves.add(right_row);
+                        System.out.println(gamestate.row_moves);
+//                        break;
+                    }
+
+                    else if (gamestate.pieces[row][i].equals(player)) { // never runs into this condition
+                        System.out.println(i + 1 + ": i???");
+                        valid = true;
+                        right_row.add(row);
+                        right_row.add(i);
+                        gamestate.row_moves.add(right_row);
+                        break;
+                    }
+                }
+                else {
+                    break; // this break is to indicate that a move is invalid if the space has no neighbors.
                 }
             }
         }
 
         //check column
         if(0 <= row && row < 8){
+            int piecesBetween = 0;
             for(int i = row; i >=0; i--){
                 ArrayList<Integer> up_col = new ArrayList<>();
-                if(gamestate.pieces[i][col].equals(player)){
+                if(gamestate.pieces[i][col].equals(player) && piecesBetween >= 1){
                     up_col.add(i);
                     up_col.add(col);
+                    piecesBetween++;
                     gamestate.col_moves.add(up_col);
                     valid = true;
                     break;
                 }
+                piecesBetween++;
             }
+
+            piecesBetween = 0;
             for(int i = row; i < 8; i++){
                 ArrayList<Integer> down_col = new ArrayList<>();
-                if(gamestate.pieces[i][col].equals(player)){
+                if(gamestate.pieces[i][col].equals(player) && piecesBetween >= 1){
                     down_col.add(i);
                     down_col.add(col);
+                    piecesBetween++;
                     gamestate.col_moves.add(down_col);
                     valid = true;
                     break;
                 }
+                piecesBetween++;
             }
         }
 
@@ -98,6 +141,7 @@ public class OthelloLogic extends GameLogic {
         int bottom_left_column = col - 1;
         int bottom_right_row = row + 1;
         int bottom_right_column = col + 1;
+
         //check top left
         ArrayList<Integer> top_left = new ArrayList<>();
         if ((row - 1) >=0 && (col - 1) >=0){
@@ -113,6 +157,7 @@ public class OthelloLogic extends GameLogic {
                 top_left_column -= 1;
             }
         }
+
         //check top right
         ArrayList<Integer> top_right = new ArrayList<>();
         if ((row - 1) >=0 && (col + 1) <8){

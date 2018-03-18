@@ -18,7 +18,7 @@ public class OthelloState extends State{
     PlayerManager pm;
 
     public OthelloState(){
-        p1 = new Player("player1");
+        p1 = new Player("player1"); // black moves first
         p2 = new Player("player2");
         p1.setPlayerPiece("black");
         p2.setPlayerPiece("white");
@@ -55,7 +55,8 @@ public class OthelloState extends State{
     }
 
     @Override
-    public void makeMove(int col, int row) {
+    public void makeMove(int col, int row) { // col, row
+//        System.out.println(pm.currentPlayer.getUsername());
         if(!row_moves.isEmpty()){
             for (int i = 0; i < row_moves.size(); i++){
                 row_move(row_moves.get(i).get(0),row_moves.get(i).get(1));
@@ -82,6 +83,13 @@ public class OthelloState extends State{
         return Color.WHITE;
     }
 
+    public String getOtherColor(Object objectColor) {
+        if (objectColor.equals("white")) {
+            return "black";
+        }
+        else { return "white"; }
+    }
+
     private void row_move(int row, int col){
         //right
         if(currentY < col){
@@ -102,7 +110,7 @@ public class OthelloState extends State{
             }
         }
         row_moves.clear();
-        return ;
+        return;
     };
 
     private void col_move(int row, int col){
@@ -185,6 +193,6 @@ public class OthelloState extends State{
             }
         }
         diagonal_moves.clear();
-        return ;
+        return;
     };
 }
