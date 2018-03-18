@@ -60,57 +60,61 @@ public class OthelloLogic extends GameLogic {
         //check row
         System.out.println("check row");
         if(0 <= (col-2) || (col+2) < 8) {
-            for (int i = col-2; i >= 0; i--) {
-                System.out.println("checking left [" + row+"]["+i+"] = " + gamestate.pieces[row][i]);
-                if(gamestate.pieces[row][i].equals(player)){
-                    System.out.println("found");
-                    ArrayList<Integer> left_row = new ArrayList<>();
-                    left_row.add(row);
-                    left_row.add(i);
-                    gamestate.row_moves.add(left_row);
-                    valid = true;
-                    break;
+            if(!gamestate.pieces[row][col-1].equals("") || !gamestate.pieces[row][col+1].equals("")){
+                for (int i = col-2; i >= 0; i--) {
+                    System.out.println("checking left [" + row+"]["+i+"] = " + gamestate.pieces[row][i]);
+                    if(gamestate.pieces[row][i].equals(player)){
+                        System.out.println("found");
+                        ArrayList<Integer> left_row = new ArrayList<>();
+                        left_row.add(row);
+                        left_row.add(i);
+                        gamestate.row_moves.add(left_row);
+                        valid = true;
+                        break;
+                    }
                 }
-            }
-            for (int i = col+2; i < 8; i++) {
-                System.out.println("checking right [" + row+"]["+i+"] = " + gamestate.pieces[row][i]);
-                if(gamestate.pieces[row][i].equals(player)){
-                    System.out.println("found");
-                    ArrayList<Integer> right_row = new ArrayList<>();
-                    right_row.add(row);
-                    right_row.add(i);
-                    gamestate.row_moves.add(right_row);
-                    valid = true;
-                    break;
+                for (int i = col+2; i < 8; i++) {
+                    System.out.println("checking right [" + row+"]["+i+"] = " + gamestate.pieces[row][i]);
+                    if(gamestate.pieces[row][i].equals(player)){
+                        System.out.println("found");
+                        ArrayList<Integer> right_row = new ArrayList<>();
+                        right_row.add(row);
+                        right_row.add(i);
+                        gamestate.row_moves.add(right_row);
+                        valid = true;
+                        break;
+                    }
                 }
             }
         }
         System.out.println("check col");
         //check column
         if(0 <= row-2 || row+2 < 8){
-            for(int i = row-2; i >=0; i--){
-                System.out.println("checking up [" +i+"]["+col+"] = " + gamestate.pieces[i][col]);
-                if(gamestate.pieces[i][col].equals(player)){
-                    System.out.println("found");
-                    ArrayList<Integer> up_col = new ArrayList<>();
-                    up_col.add(i);
-                    up_col.add(col);
-                    gamestate.col_moves.add(up_col);
-                    valid = true;
-                    break;
+            if(!gamestate.pieces[row-1][col].equals("") || !gamestate.pieces[row+1][col].equals("")){
+                for(int i = row-2; i >=0; i--){
+                    System.out.println("checking up [" +i+"]["+col+"] = " + gamestate.pieces[i][col]);
+                    if(gamestate.pieces[i][col].equals(player)){
+                        System.out.println("found");
+                        ArrayList<Integer> up_col = new ArrayList<>();
+                        up_col.add(i);
+                        up_col.add(col);
+                        gamestate.col_moves.add(up_col);
+                        valid = true;
+                        break;
+                    }
                 }
-            }
 
-            for(int i = row+2; i < 8; i++){
-                System.out.println("checking down [" +i+"]["+col+"] = " + gamestate.pieces[i][col]);
-                if(gamestate.pieces[i][col].equals(player)){
-                    System.out.println("found");
-                    ArrayList<Integer> down_col = new ArrayList<>();
-                    down_col.add(i);
-                    down_col.add(col);
-                    gamestate.col_moves.add(down_col);
-                    valid = true;
-                    break;
+                for(int i = row+2; i < 8; i++){
+                    System.out.println("checking down [" +i+"]["+col+"] = " + gamestate.pieces[i][col]);
+                    if(gamestate.pieces[i][col].equals(player)){
+                        System.out.println("found");
+                        ArrayList<Integer> down_col = new ArrayList<>();
+                        down_col.add(i);
+                        down_col.add(col);
+                        gamestate.col_moves.add(down_col);
+                        valid = true;
+                        break;
+                    }
                 }
             }
         }
@@ -129,18 +133,20 @@ public class OthelloLogic extends GameLogic {
         System.out.println("check top left");
         ArrayList<Integer> top_left = new ArrayList<>();
         if ((row - 2) >=0 && (col - 2) >=0){
-            while(top_left_row >=0 && top_left_column >=0){
-                System.out.println("checking top left [" +top_left_row+"]["+top_left_column+"] = " + gamestate.pieces[top_left_row][top_left_column]);
-                if(gamestate.pieces[top_left_row][top_left_column].equals(player)){
-                    System.out.println("found");
-                    top_left.add(top_left_row);
-                    top_left.add(top_left_column);
-                    gamestate.diagonal_moves.add(top_left);
-                    valid = true;
-                    break;
+            if(!gamestate.pieces[row-1][col-1].equals("")){
+                while(top_left_row >=0 && top_left_column >=0){
+                    System.out.println("checking top left [" +top_left_row+"]["+top_left_column+"] = " + gamestate.pieces[top_left_row][top_left_column]);
+                    if(gamestate.pieces[top_left_row][top_left_column].equals(player)){
+                        System.out.println("found");
+                        top_left.add(top_left_row);
+                        top_left.add(top_left_column);
+                        gamestate.diagonal_moves.add(top_left);
+                        valid = true;
+                        break;
+                    }
+                    top_left_row -= 1;
+                    top_left_column -= 1;
                 }
-                top_left_row -= 1;
-                top_left_column -= 1;
             }
         }
 
@@ -148,18 +154,20 @@ public class OthelloLogic extends GameLogic {
         System.out.println("check top right");
         ArrayList<Integer> top_right = new ArrayList<>();
         if ((row - 2) >=0 && (col + 2) <8){
-            while(top_right_row >=0 && top_right_column <8){
-                System.out.println("checking top right [" +top_right_row+"]["+top_right_column+"] = " + gamestate.pieces[top_right_row][top_right_column]);
-                if(gamestate.pieces[top_right_row][top_right_column].equals(player)){
-                    System.out.println("found");
-                    top_right.add(top_right_row);
-                    top_right.add(top_right_column);
-                    gamestate.diagonal_moves.add(top_right);
-                    valid = true;
-                    break;
+            if(!gamestate.pieces[row-1][col+1].equals("")){
+                while(top_right_row >=0 && top_right_column <8){
+                    System.out.println("checking top right [" +top_right_row+"]["+top_right_column+"] = " + gamestate.pieces[top_right_row][top_right_column]);
+                    if(gamestate.pieces[top_right_row][top_right_column].equals(player)){
+                        System.out.println("found");
+                        top_right.add(top_right_row);
+                        top_right.add(top_right_column);
+                        gamestate.diagonal_moves.add(top_right);
+                        valid = true;
+                        break;
+                    }
+                    top_right_row -= 1;
+                    top_right_column += 1;
                 }
-                top_right_row -= 1;
-                top_right_column += 1;
             }
         }
 
@@ -167,18 +175,20 @@ public class OthelloLogic extends GameLogic {
         System.out.println("check bottom left");
         ArrayList<Integer> bottom_left = new ArrayList<>();
         if ((row + 2) < 8 && (col - 2) >= 0){
-            while(bottom_left_row < 8 && bottom_left_column >= 0){
-                System.out.println("checking bottom left [" +bottom_left_row+"]["+bottom_left_column+"] = " + gamestate.pieces[bottom_left_row][bottom_left_column]);
-                if(gamestate.pieces[bottom_left_row][bottom_left_column].equals(player)){
-                    System.out.println("found");
-                    bottom_left.add(bottom_left_row);
-                    bottom_left.add(bottom_left_column);
-                    gamestate.diagonal_moves.add(bottom_left);
-                    valid = true;
-                    break;
+            if(!gamestate.pieces[row+1][col-1].equals("")){
+                while(bottom_left_row < 8 && bottom_left_column >= 0){
+                    System.out.println("checking bottom left [" +bottom_left_row+"]["+bottom_left_column+"] = " + gamestate.pieces[bottom_left_row][bottom_left_column]);
+                    if(gamestate.pieces[bottom_left_row][bottom_left_column].equals(player)){
+                        System.out.println("found");
+                        bottom_left.add(bottom_left_row);
+                        bottom_left.add(bottom_left_column);
+                        gamestate.diagonal_moves.add(bottom_left);
+                        valid = true;
+                        break;
+                    }
+                    bottom_left_row += 1;
+                    bottom_left_column -= 1;
                 }
-                bottom_left_row += 1;
-                bottom_left_column -= 1;
             }
         }
 
@@ -186,18 +196,20 @@ public class OthelloLogic extends GameLogic {
         System.out.println("check bottom right");
         ArrayList<Integer> bottom_right = new ArrayList<>();
         if ((row + 2) < 8 && (col + 2) < 8){
-            while(bottom_right_row < 8 && bottom_right_column <8){
-                System.out.println("checking bottom rightt [" +bottom_right_row+"]["+bottom_right_column+"] = " + gamestate.pieces[bottom_right_row][bottom_right_column]);
-                if(gamestate.pieces[bottom_right_row][bottom_right_column].equals(player)){
-                    System.out.println("found");
-                    bottom_right.add(bottom_right_row);
-                    bottom_right.add(bottom_right_column);
-                    gamestate.diagonal_moves.add(bottom_right);
-                    valid = true;
-                    break;
+            if(!gamestate.pieces[row+1][col+1].equals("")){
+                while(bottom_right_row < 8 && bottom_right_column <8){
+                    System.out.println("checking bottom rightt [" +bottom_right_row+"]["+bottom_right_column+"] = " + gamestate.pieces[bottom_right_row][bottom_right_column]);
+                    if(gamestate.pieces[bottom_right_row][bottom_right_column].equals(player)){
+                        System.out.println("found");
+                        bottom_right.add(bottom_right_row);
+                        bottom_right.add(bottom_right_column);
+                        gamestate.diagonal_moves.add(bottom_right);
+                        valid = true;
+                        break;
+                    }
+                    bottom_right_row += 1;
+                    bottom_right_column += 1;
                 }
-                bottom_right_row += 1;
-                bottom_right_column += 1;
             }
         }
         System.out.println("valid " + valid);
