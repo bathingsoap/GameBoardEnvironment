@@ -37,6 +37,7 @@ public class OthelloLogic extends GameLogic {
     public boolean checkMove(int col, int row) {
         //return true if move is valid
         String player = (String) gamestate.getCurrentTurn().getPlayerPiece();
+        String opponent = gamestate.getOtherColor(gamestate.getCurrentTurn().getPlayerPiece());
         System.out.println("current move " + player);
         boolean valid = false;
         System.out.println("row[" + row + "] col[" + col + "]");
@@ -52,7 +53,7 @@ public class OthelloLogic extends GameLogic {
         }
 
         //check surrounding if false return false
-        if(!checkSurrounding(row, col, player)){
+        if(!checkSurrounding(row, col, opponent)){
             System.out.println("NO NEIGHBORS");
             return false;
         };
@@ -60,10 +61,11 @@ public class OthelloLogic extends GameLogic {
         //check row
         System.out.println("check row");
         if(0 <= (col-2) || (col+2) < 8) {
-            if(!gamestate.pieces[row][col-1].equals("") || !gamestate.pieces[row][col+1].equals("")){
-                for (int i = col-2; i >= 0; i--) {
-                    System.out.println("checking left [" + row+"]["+i+"] = " + gamestate.pieces[row][i]);
-                    if(gamestate.pieces[row][i].equals(player)){
+            System.out.println(gamestate.pieces[row][col-1].equals(opponent));
+            if(gamestate.pieces[row][col-1].equals(opponent)) {
+                for (int i = col - 2; i >= 0; i--) {
+                    System.out.println("checking left [" + row + "][" + i + "] = " + gamestate.pieces[row][i]);
+                    if (gamestate.pieces[row][i].equals(player)) {
                         System.out.println("found");
                         ArrayList<Integer> left_row = new ArrayList<>();
                         left_row.add(row);
@@ -73,6 +75,9 @@ public class OthelloLogic extends GameLogic {
                         break;
                     }
                 }
+            }
+            System.out.println(gamestate.pieces[row][col+1].equals(opponent));
+            if(gamestate.pieces[row][col+1].equals(opponent)){
                 for (int i = col+2; i < 8; i++) {
                     System.out.println("checking right [" + row+"]["+i+"] = " + gamestate.pieces[row][i]);
                     if(gamestate.pieces[row][i].equals(player)){
@@ -90,10 +95,11 @@ public class OthelloLogic extends GameLogic {
         System.out.println("check col");
         //check column
         if(0 <= row-2 || row+2 < 8){
-            if(!gamestate.pieces[row-1][col].equals("") || !gamestate.pieces[row+1][col].equals("")){
-                for(int i = row-2; i >=0; i--){
-                    System.out.println("checking up [" +i+"]["+col+"] = " + gamestate.pieces[i][col]);
-                    if(gamestate.pieces[i][col].equals(player)){
+            System.out.println(gamestate.pieces[row-1][col].equals(opponent));
+            if(gamestate.pieces[row-1][col].equals(opponent)) {
+                for (int i = row - 2; i >= 0; i--) {
+                    System.out.println("checking up [" + i + "][" + col + "] = " + gamestate.pieces[i][col]);
+                    if (gamestate.pieces[i][col].equals(player)) {
                         System.out.println("found");
                         ArrayList<Integer> up_col = new ArrayList<>();
                         up_col.add(i);
@@ -103,7 +109,9 @@ public class OthelloLogic extends GameLogic {
                         break;
                     }
                 }
-
+            }
+            System.out.println(gamestate.pieces[row+1][col].equals(opponent));
+            if(gamestate.pieces[row+1][col].equals(opponent)) {
                 for(int i = row+2; i < 8; i++){
                     System.out.println("checking down [" +i+"]["+col+"] = " + gamestate.pieces[i][col]);
                     if(gamestate.pieces[i][col].equals(player)){
@@ -133,7 +141,7 @@ public class OthelloLogic extends GameLogic {
         System.out.println("check top left");
         ArrayList<Integer> top_left = new ArrayList<>();
         if ((row - 2) >=0 && (col - 2) >=0){
-            if(!gamestate.pieces[row-1][col-1].equals("")){
+            if(gamestate.pieces[row-1][col-1].equals(opponent)) {
                 while(top_left_row >=0 && top_left_column >=0){
                     System.out.println("checking top left [" +top_left_row+"]["+top_left_column+"] = " + gamestate.pieces[top_left_row][top_left_column]);
                     if(gamestate.pieces[top_left_row][top_left_column].equals(player)){
@@ -154,7 +162,7 @@ public class OthelloLogic extends GameLogic {
         System.out.println("check top right");
         ArrayList<Integer> top_right = new ArrayList<>();
         if ((row - 2) >=0 && (col + 2) <8){
-            if(!gamestate.pieces[row-1][col+1].equals("")){
+            if(gamestate.pieces[row-1][col+1].equals(opponent)) {
                 while(top_right_row >=0 && top_right_column <8){
                     System.out.println("checking top right [" +top_right_row+"]["+top_right_column+"] = " + gamestate.pieces[top_right_row][top_right_column]);
                     if(gamestate.pieces[top_right_row][top_right_column].equals(player)){
@@ -175,7 +183,7 @@ public class OthelloLogic extends GameLogic {
         System.out.println("check bottom left");
         ArrayList<Integer> bottom_left = new ArrayList<>();
         if ((row + 2) < 8 && (col - 2) >= 0){
-            if(!gamestate.pieces[row+1][col-1].equals("")){
+            if(gamestate.pieces[row+1][col-1].equals(opponent)) {
                 while(bottom_left_row < 8 && bottom_left_column >= 0){
                     System.out.println("checking bottom left [" +bottom_left_row+"]["+bottom_left_column+"] = " + gamestate.pieces[bottom_left_row][bottom_left_column]);
                     if(gamestate.pieces[bottom_left_row][bottom_left_column].equals(player)){
@@ -196,7 +204,7 @@ public class OthelloLogic extends GameLogic {
         System.out.println("check bottom right");
         ArrayList<Integer> bottom_right = new ArrayList<>();
         if ((row + 2) < 8 && (col + 2) < 8){
-            if(!gamestate.pieces[row+1][col+1].equals("")){
+            if(gamestate.pieces[row+1][col+1].equals(opponent)) {
                 while(bottom_right_row < 8 && bottom_right_column <8){
                     System.out.println("checking bottom rightt [" +bottom_right_row+"]["+bottom_right_column+"] = " + gamestate.pieces[bottom_right_row][bottom_right_column]);
                     if(gamestate.pieces[bottom_right_row][bottom_right_column].equals(player)){
@@ -216,12 +224,12 @@ public class OthelloLogic extends GameLogic {
         return valid;
     }
 
-    private boolean checkSurrounding(int row, int col, String player){
+    private boolean checkSurrounding(int row, int col, String opponent){
         boolean surrounded = false;
         //check left
         if((col - 1) > -1){
             System.out.println("checking for left neighbor row[" + row + "] col[" + (col-1) + "]");
-            if(gamestate.pieces[row][col-1].equals("") || gamestate.pieces[row][col-1].equals(player)){
+            if(!gamestate.pieces[row][col-1].equals(opponent)){
                 System.out.println("no opposite neighbor");
             }
             else{
@@ -232,7 +240,7 @@ public class OthelloLogic extends GameLogic {
         //check right
         if((col + 1) < 8){
             System.out.println("checking for right neighbor row[" + row + "] col[" + (col+1) + "]");
-            if(gamestate.pieces[row][col+1].equals("") || gamestate.pieces[row][col+1].equals(player)){
+            if(!gamestate.pieces[row][col+1].equals(opponent)){
                 System.out.println("no opposite neighbor");
             }
             else{
@@ -243,7 +251,7 @@ public class OthelloLogic extends GameLogic {
         //check up
         if((row - 1) > -1){
             System.out.println("checking for up neighbor row[" +(row-1) + "] col[" + col + "]");
-            if(gamestate.pieces[row-1][col].equals("") || gamestate.pieces[row-1][col].equals(player)){
+            if(!gamestate.pieces[row-1][col].equals(opponent)){
                 System.out.println("no opposite neighbor");
             }
             else{
@@ -254,7 +262,7 @@ public class OthelloLogic extends GameLogic {
         //check down
         if((row + 1) < 8){
             System.out.println("checking for down neighbor row[" +(row+1) + "] col[" + col + "]");
-            if(gamestate.pieces[row+1][col].equals("") || gamestate.pieces[row+1][col].equals(player)){
+            if(!gamestate.pieces[row+1][col].equals(opponent)){
                 System.out.println("no opposite neighbor");
             }
             else{
@@ -265,7 +273,7 @@ public class OthelloLogic extends GameLogic {
         //check up left
         if((row - 1) > -1 && (col - 1) > -1){
             System.out.println("checking for up left neighbor row[" +(row-1) + "] col[" + (col-1) + "]");
-            if(gamestate.pieces[row-1][col-1].equals("") || gamestate.pieces[row-1][col-1].equals(player)){
+            if(!gamestate.pieces[row-1][col-1].equals(opponent)){
                 System.out.println("no opposite neighbor");
             }
             else{
@@ -276,7 +284,7 @@ public class OthelloLogic extends GameLogic {
         //check up right
         if((row - 1) > -1 && (col + 1) < 8){
             System.out.println("checking for up right neighbor row[" +(row-1) + "] col[" + (col+1) + "]");
-            if(gamestate.pieces[row-1][col+1].equals("") || gamestate.pieces[row-1][col+1].equals(player)){
+            if(!gamestate.pieces[row-1][col+1].equals(opponent)){
                 System.out.println("no opposite neighbor");
             }
             else{
@@ -287,7 +295,7 @@ public class OthelloLogic extends GameLogic {
         //check bottom left
         if((row + 1) < 8 && (col - 1) > -1){
             System.out.println("checking for bottom left neighbor row[" +(row+1) + "] col[" + (col-1) + "]");
-            if(gamestate.pieces[row+1][col-1].equals("") || gamestate.pieces[row+1][col-1].equals(player)){
+            if(!gamestate.pieces[row+1][col-1].equals(opponent)){
                 System.out.println("no opposite neighbor");
             }
             else{
@@ -298,7 +306,7 @@ public class OthelloLogic extends GameLogic {
         //check bottom right
         if((row + 1) < 8 && (col + 1) < 8){
             System.out.println("checking for bottom right neighbor row[" +(row+1) + "] col[" + (col+1) + "]");
-            if(gamestate.pieces[row+1][col+1].equals("") || gamestate.pieces[row+1][col+1].equals(player)){
+            if(!gamestate.pieces[row+1][col+1].equals(opponent)){
                 System.out.println("no opposite neighbor");
             }
             else{
