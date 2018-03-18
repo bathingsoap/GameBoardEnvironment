@@ -67,13 +67,10 @@ public class OthelloBoard implements Board {
 
     private class MyActionListener implements ActionListener {
         public void actionPerformed(ActionEvent a) {
-            int k, l = 0;
             JButton click = (JButton) a.getSource();
             for (int row = 0; row < 8; row++) {
                 for (int col = 0; col < 8; col++) {
                     if (buttons[row][col] == click) {
-                        k = row;
-                        l = col;
                         if(!logic.checkMove(col, row)){
                             JOptionPane.showMessageDialog(null, "Invalid move");
                         } else {
