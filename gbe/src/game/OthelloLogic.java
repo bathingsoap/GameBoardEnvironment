@@ -59,7 +59,7 @@ public class OthelloLogic extends GameLogic {
 
         //check row
         System.out.println("check row");
-        if(0 <= (col-2) && (col+2) < 8) {
+        if(0 <= (col-2) || (col+2) < 8) {
             for (int i = col-2; i >= 0; i--) {
                 System.out.println("checking left [" + row+"]["+i+"] = " + gamestate.pieces[row][i]);
                 if(gamestate.pieces[row][i].equals(player)){
@@ -87,7 +87,7 @@ public class OthelloLogic extends GameLogic {
         }
         System.out.println("check col");
         //check column
-        if(0 <= row-2 && row+2 < 8){
+        if(0 <= row-2 || row+2 < 8){
             for(int i = row-2; i >=0; i--){
                 System.out.println("checking up [" +i+"]["+col+"] = " + gamestate.pieces[i][col]);
                 if(gamestate.pieces[i][col].equals(player)){
