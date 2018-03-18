@@ -290,6 +290,9 @@ public class CLBoard implements Board, ActionListener {
                 }
             }
         }
+        if(e.getActionCommand().equals("exit")) {
+        	frame.dispose();
+        }
     }
     
     public void updateWinner(boolean winner){
