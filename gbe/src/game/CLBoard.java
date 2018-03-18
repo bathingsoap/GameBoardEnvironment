@@ -2,8 +2,13 @@ package game;
 
 import engine.Board;
 import engine.State;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
@@ -54,6 +59,7 @@ public class CLBoard implements Board, ActionListener {
     JLabel turnLabel;
     JButton rollButton;
     
+    JPanel messagePanel;
     JLabel message1;
     JLabel message2;
     JLabel message3;
@@ -89,7 +95,7 @@ public class CLBoard implements Board, ActionListener {
     @Override
     public void drawBoard(String gameType){
         frame = new JFrame(gameType);
-        frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
+        frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.PAGE_AXIS));
         frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
         frame.setLocation(500, 100);
         game = new JPanel(new GridLayout(10, 10));
@@ -111,19 +117,88 @@ public class CLBoard implements Board, ActionListener {
         buttonHeight = buttons[0][0].getHeight();
         
         frame.add(game);
-        frame.add(drawInfoBoard());
+        JPanel info = drawInfoBoard();
+        frame.add(info);
+        
+        JPanel messages = drawMessageBoard();
+        frame.add(messages);
+        //welcome.setAlignmentX(Component.CENTER_ALIGNMENT);
         frame.pack();
         frame.setVisible(true);
         state  = new CLState(this, new PlayerManager(new Player("1"), new Player("2")));
     }
     
-    public JPanel drawInfoBoard(){
+    public JPanel drawInfoBoard() {
+    	infoPanel = new JPanel(new GridBagLayout());
+    	
+    	welcomeLabel = new JLabel("Welcome to Chutes and Latters!");
+    	
+    	p1Panel = new JPanel();
+    	p1Panel.setLayout(new BorderLayout());
+    	p1Label = new JLabel("Player 1 position: ");
+    	p1Position = new TextField("0");
+    	p1Position.setEditable(false);
+    	p1Panel.add(p1Label, BorderLayout.LINE_START);
+    	p1Panel.add(p1Position, BorderLayout.LINE_END);
+    	      
+    	p2Panel = new JPanel();
+    	p2Panel.setLayout(new BorderLayout());
+    	p2Label = new JLabel("Player 2 position: ");
+    	p2Position = new TextField("0");
+    	p2Position.setEditable(false);
+    	p2Panel.add(p2Label, BorderLayout.LINE_START);
+    	p2Panel.add(p2Position, BorderLayout.LINE_END);
+    	
+    	rollPanel = new JPanel();
+    	rollPanel.setLayout(new BoxLayout(rollPanel,BoxLayout.X_AXIS));
+    	turnLabel = new JLabel("Player 1:");
+    	rollButton = new JButton("Roll");
+        rollButton.addActionListener(this);
+        rollPanel.add(turnLabel);
+        rollPanel.add(rollButton);
+        
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy=0;
+        c.gridwidth = 3;
+    	infoPanel.add(welcomeLabel, c);
+    	
+    	c.gridwidth =1 ;
+    	c.gridy=1;
+    	c.weightx = 0.2;
+    	infoPanel.add(p1Panel, c);
+    	
+    	c.gridx = 2;
+    	infoPanel.add(p2Panel, c);
+    	
+    	c.gridx = 1;
+    	infoPanel.add(rollPanel, c);
+    	
+        message1 = new JLabel();
+        message2 = new JLabel();
+        message3 = new JLabel();
+        message4 = new JLabel();
+        message5 = new JLabel();
+        
+        c.gridwidth=3;
+        c.gridy=2;
+        infoPanel.add(message1,c);
+        c.gridy=3;
+        infoPanel.add(message2,c);
+        c.gridy=4;
+        infoPanel.add(message3,c);
+        c.gridy=5;
+        infoPanel.add(message4,c);
+        c.gridy=6;
+        infoPanel.add(message5,c);
+    	//infoPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    	/*
         infoPanel = new JPanel();
         infoPanel.setLayout(new BoxLayout(infoPanel,BoxLayout.Y_AXIS));
 	welcomeLabel = new JLabel("Welcome to Chutes and Latters!");
 	      
 	p1Panel = new JPanel();
-	p1Panel.setLayout(new BoxLayout(p1Panel,BoxLayout.X_AXIS));
+	p1Panel.setLayout(new BoxLayout(p1Panel,BoxLayout.Y_AXIS));
 	p1Label = new JLabel("Player 1 position: ");
 	p1Position = new TextField("0");
 	p1Position.setEditable(false);
@@ -131,7 +206,7 @@ public class CLBoard implements Board, ActionListener {
 	p1Panel.add(p1Position);
 	      
 	p2Panel = new JPanel();
-	p2Panel.setLayout(new BoxLayout(p2Panel,BoxLayout.X_AXIS));
+	p2Panel.setLayout(new BoxLayout(p2Panel,BoxLayout.Y_AXIS));
 	p2Label = new JLabel("Player 2 position: ");
 	p2Position = new TextField("0");
 	p2Position.setEditable(false);
@@ -140,7 +215,7 @@ public class CLBoard implements Board, ActionListener {
 	      
 	      
 	rollPanel = new JPanel();
-	rollPanel.setLayout(new BoxLayout(rollPanel,BoxLayout.X_AXIS));
+	rollPanel.setLayout(new BoxLayout(rollPanel,BoxLayout.Y_AXIS));
 	turnLabel = new JLabel("Player 1:");
 	rollButton = new JButton("Roll");
         rollButton.addActionListener(this);
@@ -163,8 +238,34 @@ public class CLBoard implements Board, ActionListener {
         infoPanel.add(message3);
         infoPanel.add(message4);
         infoPanel.add(message5);
-	      
+	*/      
 	return infoPanel;
+	
+    }
+    
+    public JPanel drawMessageBoard() {
+    	messagePanel = new JPanel(new GridBagLayout());
+
+    	GridBagConstraints c = new GridBagConstraints();
+            message1 = new JLabel("---");
+            message2 = new JLabel("---");
+            message3 = new JLabel("---");
+            message4 = new JLabel("---");
+            message5 = new JLabel("---");
+            
+            c.gridx=0;
+            c.gridy=0;
+            messagePanel.add(message1,c);
+            c.gridy=1;
+            messagePanel.add(message2,c);
+            c.gridy=2;
+            messagePanel.add(message3,c);
+            c.gridy=3;
+            messagePanel.add(message4,c);
+            c.gridy=4;
+            messagePanel.add(message5,c);
+            
+       return messagePanel;
     }
 
     @Override

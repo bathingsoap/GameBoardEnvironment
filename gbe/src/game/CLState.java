@@ -43,18 +43,18 @@ public class CLState extends State {
             newPosition = currentPosition;
             board.updateMessage2("Your roll puts you above 100.");
             board.updateMessage3("You are still on space " + newPosition + ".");
-            board.updateMessage4("");
+            board.updateMessage4("---");
         }else if(newPosition.equals(100)){
             board.updateMessage2("You are now on space 100." );
             board.updateMessage3("Congratulations, you win!");
-            board.updateMessage4("");
+            board.updateMessage4("---");
             board.updateWinner(true);
             score.put(playerTurn, newPosition);
             winner = true;
         }else{
             board.updateMessage2("You are now on space " + newPosition + ".");
-            board.updateMessage3("");
-            board.updateMessage4("");
+            board.updateMessage3("---");
+            board.updateMessage4("---");
             if(logic.isChute(newPosition)){
                 board.updateMessage3("Oh no, you landed on a chute!");
                 newPosition = logic.moveDown(newPosition);
@@ -66,7 +66,7 @@ public class CLState extends State {
                 if(newPosition.equals(100)){
                     board.updateMessage2("You are now on space 100." );
                     board.updateMessage3("Congratulations, you win!");
-                    board.updateMessage4("");
+                    board.updateMessage4("---");
                     board.updateWinner(true);
                     score.put(playerTurn, newPosition);
                     winner = true;

@@ -3,6 +3,9 @@ package game;
 import java.awt.*;
 import java.util.ArrayList;
 
+import pieces.GomokuPiece;
+import pieces.Piece;
+
 class GomokuLogic {
     // Color.getHSBColor(72, 77, 81); 黑色
     // Color.getHSBColor(246, 246, 246); 白色
@@ -11,7 +14,7 @@ class GomokuLogic {
     private int rows;
     private int cols;
     private Color currentColor;
-    private ArrayList<ArrayList<GomokuPiece>> pieces;
+    private ArrayList<ArrayList<Piece>> pieces;
 
     GomokuLogic() {}
 
@@ -39,8 +42,8 @@ class GomokuLogic {
         this.currentColor = currentColor;
     }
 
-    void setPieces(ArrayList<ArrayList<GomokuPiece>> pieces) {
-        this.pieces = pieces;
+    void setPieces(ArrayList<ArrayList<Piece>> pieces2) {
+        this.pieces = pieces2;
     }
 
     boolean boolWin() {

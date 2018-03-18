@@ -1,6 +1,8 @@
 package game;
 
 import engine.Board;
+import pieces.GomokuPiece;
+import pieces.Piece;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +16,7 @@ public class GomokuPanel extends JPanel implements MouseListener {
 	private GomokuLogic gomokuLogic = new GomokuLogic();
     private GomokuState gomokuState = GomokuState.getInstance();
     private String turn = gomokuState.getTurn();
-    private ArrayList<ArrayList<GomokuPiece>> pieces = gomokuState.getPieces();
+    private ArrayList<ArrayList<Piece>> pieces = gomokuState.getPieces();
     private boolean status = gomokuState.getStatus();
 
     // --- Current Attributes ---
@@ -118,7 +120,7 @@ public class GomokuPanel extends JPanel implements MouseListener {
         }
         for (int i = 0; i < pieces.size(); i++) {
             for (int j = 0; j < pieces.get(i).size(); j++) {
-                int diameter = GomokuPiece.DIAMETER;
+                int diameter = GomokuPiece.getDiameter();
                 if (boolPiece(j, i)) {
                     int x = i * GRID_SPAN + MARGIN;
                     int y = j * GRID_SPAN + MARGIN;
@@ -134,8 +136,8 @@ public class GomokuPanel extends JPanel implements MouseListener {
     }
 
     private boolean boolFullPiece() {
-        for (ArrayList<GomokuPiece> piece : pieces) {
-            for (GomokuPiece aPiece : piece) {
+        for (ArrayList<Piece> piece : pieces) {
+            for (Piece aPiece : piece) {
                 if (aPiece.getColor().getAlpha() == new Color(0, 0, 0, 0).getAlpha())
                     return false;
             }
