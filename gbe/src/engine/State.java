@@ -18,4 +18,6 @@ public abstract class State {
 
 	public abstract Player getCurrentTurn();
 	public abstract void makeMove();
+	public abstract void restart();
+	public abstract void exit();
 }

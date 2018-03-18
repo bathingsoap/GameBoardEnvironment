@@ -4,6 +4,7 @@ import engine.Board;
 import engine.State;
 
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -66,6 +67,10 @@ public class CLBoard implements Board, ActionListener {
     JLabel message4;
     JLabel message5;
     
+    JPanel optionPanel;
+    JButton restart;
+    JButton exit;
+    
     State state;
     boolean winner = false;
     
@@ -122,6 +127,8 @@ public class CLBoard implements Board, ActionListener {
         
         JPanel messages = drawMessageBoard();
         frame.add(messages);
+        JPanel options = drawOptionBoard();
+        frame.add(options);
         //welcome.setAlignmentX(Component.CENTER_ALIGNMENT);
         frame.pack();
         frame.setVisible(true);
@@ -173,24 +180,6 @@ public class CLBoard implements Board, ActionListener {
     	
     	c.gridx = 1;
     	infoPanel.add(rollPanel, c);
-    	
-        message1 = new JLabel();
-        message2 = new JLabel();
-        message3 = new JLabel();
-        message4 = new JLabel();
-        message5 = new JLabel();
-        
-        c.gridwidth=3;
-        c.gridy=2;
-        infoPanel.add(message1,c);
-        c.gridy=3;
-        infoPanel.add(message2,c);
-        c.gridy=4;
-        infoPanel.add(message3,c);
-        c.gridy=5;
-        infoPanel.add(message4,c);
-        c.gridy=6;
-        infoPanel.add(message5,c);
     	//infoPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
     	/*
         infoPanel = new JPanel();
@@ -267,13 +256,40 @@ public class CLBoard implements Board, ActionListener {
             
        return messagePanel;
     }
+    
+    public JPanel drawOptionBoard() {
+    	optionPanel = new JPanel(new GridBagLayout());
+    	GridBagConstraints c = new GridBagConstraints();
+    	restart = new JButton("restart");
+    	exit = new JButton("exit");
+    	restart.addActionListener(this);
+    	exit.addActionListener(this);
+    	
+    	c.weightx = 0.1;
+    	c.gridx=0;
+    	c.gridy=0;
+    	
+    	optionPanel.add(restart, c);
+    	c.gridx=1;
+    	optionPanel.add(exit, c);
+    	
+    	return optionPanel;
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(!winner){
-            state.makeMove();
+    	if(e.getActionCommand().equals("Roll"))
+    		if(!winner){
+    			state.makeMove();
+    		}
+        if(e.getActionCommand().equals("restart")) {
+        	state.restart();
+        	for (int i = 0; i < 10; i++) { // row
+                for (int j = 0; j < 10; j++) { // col
+                    
+                }
+            }
         }
-        
     }
     
     public void updateWinner(boolean winner){
@@ -340,6 +356,15 @@ public class CLBoard implements Board, ActionListener {
         
         buttons[oldx][oldy].repaint();
         buttons[x][y].repaint();   
+    }
+    
+    public void removePlayer() {
+    	for(int i = 0;i<10;i++) {
+    		for(int j = 0;j<10;j++) {
+    			buttons[i][j].setIcon(emptyPieces[i][j]);
+    		}
+    	}
+    	
     }
     
     public ImageIcon[][] createImageIcons(String path){

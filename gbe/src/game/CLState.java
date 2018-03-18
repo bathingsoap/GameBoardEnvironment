@@ -118,9 +118,30 @@ public class CLState extends State {
         board.movePlayer(p, a, b, oldA, oldB, sameScore);      
     }
     
+    public void restart() {
+        this.playerTurn = players[0];
+        for(Player p: players){
+            score.put(p,0);
+        }
+        board.updateMessage1("---");
+        board.updateMessage2("---");
+        board.updateMessage3("---");
+        board.updateMessage4("---");
+        board.updateMessage5("---");
+        board.updateP1Position("0");
+        board.updateP2Position("0");
+        board.removePlayer();
+        
+    }
     public HashMap<Player,Integer> getScore(){
         return score;
     }
+
+	@Override
+	public void exit() {
+		// TODO Auto-generated method stub
+		
+	}
     
     
 }
