@@ -23,6 +23,8 @@ public class OthelloState extends State{
         p1.setPlayerPiece("black");
         p2.setPlayerPiece("white");
         pm = new PlayerManager(p1, p2);
+        pm.score.put(this.p1, 2);
+        pm.score.put(this.p2, 2);
         pieces = new String[8][8];
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
@@ -51,12 +53,12 @@ public class OthelloState extends State{
         for(int i=0; i < flip.size(); i++){
             pieces[flip.get(i).get(0)][flip.get(i).get(1)] = (String) getCurrentTurn().getPlayerPiece();
         }
+        updateScore(pm.p1, pm.p2);
         return;
     }
 
     @Override
     public void makeMove(int col, int row) { // col, row
-//        System.out.println(pm.currentPlayer.getUsername());
         if(!row_moves.isEmpty()){
             for (int i = 0; i < row_moves.size(); i++){
                 row_move(row_moves.get(i).get(0),row_moves.get(i).get(1));
@@ -72,7 +74,6 @@ public class OthelloState extends State{
                 diagonal_move(diagonal_moves.get(i).get(0), diagonal_moves.get(i).get(1));
             }
         }
-
         return;
     }
 
@@ -88,6 +89,24 @@ public class OthelloState extends State{
             return "black";
         }
         else { return "white"; }
+    }
+
+    public void updateScore(Player player1, Player player2) {
+        int player1_score = 0; int player2_score = 0;
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                if (player1.getPlayerPiece().equals(pieces[row][col])) {
+                    player1_score++;
+                } else if (player2.getPlayerPiece().equals(pieces[row][col])) {
+                    player2_score++;
+                }
+            }
+        }
+        pm.score.put(player1, player1_score);
+        pm.score.put(player2, player2_score);
+//        System.out.println("player: " + player1.getUsername() + ", black_score: " + player1_score);
+//        System.out.println("player: " + player2.getUsername() + ", white_score: " + player2_score);
+
     }
 
     private void row_move(int row, int col){
