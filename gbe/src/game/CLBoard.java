@@ -2,12 +2,14 @@ package game;
 
 import engine.Board;
 import engine.State;
+import pieces.*;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -34,6 +36,8 @@ import players.PlayerManager;
 public class CLBoard implements Board, ActionListener {
     
     JButton[][] buttons;
+    JLabel[][] labels;
+  	JPanel gbl;
     JFrame frame;
     Player p1; Player p2;
     PlayerManager pm;
@@ -71,6 +75,8 @@ public class CLBoard implements Board, ActionListener {
     JButton restart;
     JButton exit;
     
+    CLPiece white;
+    CLPiece black;
     State state;
     boolean winner = false;
     
@@ -82,7 +88,19 @@ public class CLBoard implements Board, ActionListener {
     
     
     public CLBoard(){
-        buttons = new JButton[10][10];
+        //buttons = new JButton[10][10];
+    	labels = new JLabel[10][10];
+    	gbl = new JPanel(new GridBagLayout());
+    	
+    	/*
+    	PieceFactory pf = new PieceFactory();
+    	white = (CLPiece) pf.getPiece("CL");
+    	white.setColor(Color.white);
+    	
+    	black = (CLPiece) pf.getPiece("CL");
+    	black.setColor(Color.black);
+    	*/
+    	
         blackPiecePath = "/images/BlackBoard/BlackBoard [www.imagesplitter.net]-";
         whitePiecePath = "/images/WhiteBoard/WhiteBoard [www.imagesplitter.net]-";
         bothPiecePath = "/images/BothBoard/BothBoard [www.imagesplitter.net]-";
@@ -93,7 +111,7 @@ public class CLBoard implements Board, ActionListener {
         bothPieces = createImageIcons(bothPiecePath);
         emptyPieces = createImageIcons(emptyPiecePath);
         
-        
+        //drawBoard("a");
         
     }
     
@@ -102,9 +120,30 @@ public class CLBoard implements Board, ActionListener {
         frame = new JFrame(gameType);
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.PAGE_AXIS));
         frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
-        frame.setLocation(500, 100);
+        frame.setLocation(300, 50);
+        //game = new JPanel(new GridLayout(5,5));
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx=0;
+        c.gridy=0;
+        for(int i = 0;i<10;i++) {
+        	for(int j = 0;j<10;j++) {
+        		JLabel jp = new JLabel();
+        		gbl.add(jp, c);
+        		jp.setIcon(emptyPieces[i][j]);
+        		labels[i][j]= jp;
+        		c.gridx++;
+        	}
+        	c.gridy++;
+        	c.gridx=0;
+        }
+        
+        //gbl.add(black,c);
+        frame.add(gbl);
+        
+        /*
         game = new JPanel(new GridLayout(10, 10));
         game.setPreferredSize(new Dimension(600, 600));
+        
         for (int i = 0; i < 10; i++) { // row
             for (int j = 0; j < 10; j++) { // col
                 JButton button = new JButton();
@@ -120,10 +159,12 @@ public class CLBoard implements Board, ActionListener {
         }
         buttonWidth = buttons[0][0].getWidth();
         buttonHeight = buttons[0][0].getHeight();
+        */
         
-        frame.add(game);
+        //frame.add(game);
         JPanel info = drawInfoBoard();
         frame.add(info);
+        
         
         JPanel messages = drawMessageBoard();
         frame.add(messages);
@@ -132,13 +173,16 @@ public class CLBoard implements Board, ActionListener {
         //welcome.setAlignmentX(Component.CENTER_ALIGNMENT);
         frame.pack();
         frame.setVisible(true);
+        frame.setPreferredSize(new Dimension(600,600));
         state  = new CLState(this, new PlayerManager(new Player("1"), new Player("2")));
+        
+        System.out.println(frame.getSize());
     }
     
     public JPanel drawInfoBoard() {
     	infoPanel = new JPanel(new GridBagLayout());
     	
-    	welcomeLabel = new JLabel("Welcome to Chutes and Latters!");
+    	welcomeLabel = new JLabel("Welcome to Chutes and Ladders!");
     	
     	p1Panel = new JPanel();
     	p1Panel.setLayout(new BorderLayout());
@@ -339,32 +383,53 @@ public class CLBoard implements Board, ActionListener {
     }
     
     public void movePlayer(int player, int x, int y, int oldx, int oldy, boolean sameScore){
-        if(buttons[oldx][oldy].getIcon().equals(bothPieces[oldx][oldy])){
+    	/*
+    	 if(buttons[oldx][oldy].getIcon().equals(bothPieces[oldx][oldy])){
+             if(player == 1){
+                 buttons[oldx][oldy].setIcon(whitePieces[oldx][oldy]);
+             }else{
+                 buttons[oldx][oldy].setIcon(blackPieces[oldx][oldy]);
+             }
+         }else{
+             buttons[oldx][oldy].setIcon(emptyPieces[oldx][oldy]);
+         }
+         if(sameScore){
+             buttons[x][y].setIcon(bothPieces[x][y]);
+         }else{
+             if(player == 1)
+                 buttons[x][y].setIcon(blackPieces[x][y]);
+             else
+                 buttons[x][y].setIcon(whitePieces[x][y]);
+         }
+         
+         buttons[oldx][oldy].repaint();
+         buttons[x][y].repaint();   
+         */
+         //JLabel jp = new JLabel();
+         //jp.setIcon(bothPieces[x][y]);
+    	if(labels[oldx][oldy].getIcon().equals(bothPieces[oldx][oldy])){
             if(player == 1){
-                buttons[oldx][oldy].setIcon(whitePieces[oldx][oldy]);
+                labels[oldx][oldy].setIcon(whitePieces[oldx][oldy]);
             }else{
-                buttons[oldx][oldy].setIcon(blackPieces[oldx][oldy]);
+                labels[oldx][oldy].setIcon(blackPieces[oldx][oldy]);
             }
         }else{
-            buttons[oldx][oldy].setIcon(emptyPieces[oldx][oldy]);
+            labels[oldx][oldy].setIcon(emptyPieces[oldx][oldy]);
         }
         if(sameScore){
-            buttons[x][y].setIcon(bothPieces[x][y]);
+            labels[x][y].setIcon(bothPieces[x][y]);
         }else{
             if(player == 1)
-                buttons[x][y].setIcon(blackPieces[x][y]);
+                labels[x][y].setIcon(blackPieces[x][y]);
             else
-                buttons[x][y].setIcon(whitePieces[x][y]);
+                labels[x][y].setIcon(whitePieces[x][y]);
         }
-        
-        buttons[oldx][oldy].repaint();
-        buttons[x][y].repaint();   
     }
     
     public void removePlayer() {
     	for(int i = 0;i<10;i++) {
     		for(int j = 0;j<10;j++) {
-    			buttons[i][j].setIcon(emptyPieces[i][j]);
+    			labels[i][j].setIcon(emptyPieces[i][j]);
     		}
     	}
     	

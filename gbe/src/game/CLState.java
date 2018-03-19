@@ -60,7 +60,7 @@ public class CLState extends State {
                 newPosition = logic.moveDown(newPosition);
                 board.updateMessage4("You are now on space " + newPosition+".");
             }else if(logic.isLatter(newPosition)){
-                board.updateMessage3("Yay, you landed on a latter!");
+                board.updateMessage3("Yay, you landed on a ladder!");
                 newPosition = logic.moveUp(newPosition);
                 board.updateMessage4("You are now on space " + newPosition+".");
                 if(newPosition.equals(100)){
