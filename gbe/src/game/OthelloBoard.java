@@ -73,23 +73,19 @@ public class OthelloBoard implements Board {
         for (int i = 0; i < 8; i++) { // row
             for (int j = 0; j < 8; j++) { // col
                 JButton button = new JButton();
-                //button.setText(("[" + i + "," + j + "]"));
                 button.setForeground(Color.white);
                 if (i == 3 && j == 3 || i == 4 && j == 4) {
                     button.setBackground(Color.white);
                     button.setBorder(new LineBorder(Color.black, 1));
                     button.setForeground(Color.black);
-                    button.setText("["+i+","+j+"]");
                 } else if (i == 3 && j == 4 || i == 4 && j == 3) {
                     button.setBackground(Color.black);
                     button.setBorder(new LineBorder(Color.black, 1));
-                    button.setText("["+i+","+j+"]");
                     button.setForeground(Color.white);
 
                 } else {
                     button.setBackground(new Color(0, 100, 0));
                     button.setBorder(new LineBorder(Color.black, 1));
-                    button.setText("["+i+","+j+"]");
                 }
                 button.setVisible(true);
                 button.addActionListener(new MyActionListener());
@@ -128,6 +124,25 @@ public class OthelloBoard implements Board {
             // update label here
             status.setText("<html>" + "<strong>Player 1:</strong> " + state.pm.score.get(state.pm.p1) + "<br/><strong>Player 2:</strong> " +
                     state.pm.score.get(state.pm.p2) + "</html>");
+
+            //check winning state
+            if(logic.checkWinningState()){
+                if (state.movesLeft.isEmpty()) {
+                    if (state.pm.score.get(state.p1) > state.pm.score.get(state.p2)) {
+                        JOptionPane.showMessageDialog(null, "Player 1 has won with a score of: " + state.pm.score.get(state.p1) + " . While " +
+                                "Player 2 has a score of: " + state.pm.score.get(state.p2));
+                    } else if (state.pm.score.get(state.p2) > state.pm.score.get(state.p1)) {
+                        JOptionPane.showMessageDialog(null, "Player 2 has won with a score of: " + state.pm.score.get(state.p2) + " . While " +
+                                "Player 1 has a score of: " + state.pm.score.get(state.p1));
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Nobody won, it was a tie!");
+                    }
+                }
+            }
+            //clear row,col,diagonal moves
+            state.row_moves.clear();
+            state.col_moves.clear();
+            state.diagonal_moves.clear();
         }
     }
 }

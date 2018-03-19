@@ -1,5 +1,6 @@
 package game;
 import engine.State;
+import org.omg.PortableInterceptor.INACTIVE;
 import players.*;
 
 import java.awt.*;
@@ -11,7 +12,7 @@ public class OthelloState extends State{
     ArrayList<ArrayList<Integer>> col_moves = new ArrayList<>();
     ArrayList<ArrayList<Integer>> diagonal_moves = new ArrayList<>();
     ArrayList<ArrayList<Integer>> flip = new ArrayList<>();
-    ArrayList<ArrayList<Integer>> movesLeft;
+    ArrayList<ArrayList<Integer>> movesLeft = new ArrayList<>();
     int currentX; //row
     int currentY; //col
     Player p1; Player p2;
@@ -35,6 +36,7 @@ public class OthelloState extends State{
         pieces[4][4] = "white";
         pieces[3][4] = "black";
         pieces[4][3] = "black";
+        setMovesLeft();
     }
 
     @Override
@@ -51,9 +53,17 @@ public class OthelloState extends State{
         currentY = y;
         makeMove(x,y);
         for(int i=0; i < flip.size(); i++){
+            if(movesLeft.contains(flip.get(i))){
+                movesLeft.remove(movesLeft.indexOf(flip.get(i)));
+            }
             pieces[flip.get(i).get(0)][flip.get(i).get(1)] = (String) getCurrentTurn().getPlayerPiece();
         }
         updateScore(pm.p1, pm.p2);
+
+        //clear row,col,diagonal moves
+        row_moves.clear();
+        col_moves.clear();
+        diagonal_moves.clear();
         return;
     }
 
@@ -104,9 +114,33 @@ public class OthelloState extends State{
         }
         pm.score.put(player1, player1_score);
         pm.score.put(player2, player2_score);
-//        System.out.println("player: " + player1.getUsername() + ", black_score: " + player1_score);
-//        System.out.println("player: " + player2.getUsername() + ", white_score: " + player2_score);
+    }
 
+    private void setMovesLeft(){
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                ArrayList<Integer> move = new ArrayList<>();
+                move.add(i);
+                move.add(j);
+                movesLeft.add(move);
+            }
+        }
+        ArrayList<Integer> left_up = new ArrayList<>();
+        left_up.add(3);
+        left_up.add(3);
+        movesLeft.remove(left_up);
+        ArrayList<Integer> left_down = new ArrayList<>();
+        left_down.add(4);
+        left_down.add(3);
+        movesLeft.remove(left_down);
+        ArrayList<Integer> right_up = new ArrayList<>();
+        right_up.add(3);
+        right_up.add(4);
+        movesLeft.remove(right_up);
+        ArrayList<Integer> right_down = new ArrayList<>();
+        right_down.add(4);
+        right_down.add(4);
+        movesLeft.remove(right_down);
     }
 
     private void row_move(int row, int col){
@@ -128,7 +162,6 @@ public class OthelloState extends State{
                 flip.add(left_row);
             }
         }
-        row_moves.clear();
         return;
     };
 
@@ -151,7 +184,6 @@ public class OthelloState extends State{
                 flip.add(down_col);
             }
         }
-        col_moves.clear();
         return ;
     };
 
@@ -171,7 +203,7 @@ public class OthelloState extends State{
             }
         }
 
-        //check top right
+        //top right
         if(row < currentX && col > currentY){
             int top_right_row = row;
             int top_right_column = col;
@@ -211,7 +243,6 @@ public class OthelloState extends State{
                 bottom_right_column -= 1;
             }
         }
-        diagonal_moves.clear();
         return;
     };
 }
