@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8024bd38-c6b9-46e0-82a7-7faa59884170" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/gbe/src/engine/Board.java" afterPath="$PROJECT_DIR$/gbe/src/engine/Board.java" />
-      <change beforePath="$PROJECT_DIR$/gbe/src/engine/BoardFactory.java" afterPath="$PROJECT_DIR$/gbe/src/engine/BoardFactory.java" />
-      <change beforePath="$PROJECT_DIR$/gbe/src/engine/GameEngine.java" afterPath="$PROJECT_DIR$/gbe/src/engine/GameEngine.java" />
-      <change beforePath="$PROJECT_DIR$/gbe/src/engine/GameLogic.java" afterPath="$PROJECT_DIR$/gbe/src/engine/GameLogic.java" />
-      <change beforePath="$PROJECT_DIR$/gbe/src/engine/State.java" afterPath="$PROJECT_DIR$/gbe/src/engine/State.java" />
-      <change beforePath="$PROJECT_DIR$/gbe/src/environment/Driver.java" afterPath="$PROJECT_DIR$/gbe/src/environment/Driver.java" />
-      <change beforePath="$PROJECT_DIR$/gbe/src/game/CLLogic.java" afterPath="$PROJECT_DIR$/gbe/src/game/CLLogic.java" />
-      <change beforePath="$PROJECT_DIR$/gbe/src/game/CLState.java" afterPath="$PROJECT_DIR$/gbe/src/game/CLState.java" />
       <change beforePath="$PROJECT_DIR$/gbe/src/game/OthelloBoard.java" afterPath="$PROJECT_DIR$/gbe/src/game/OthelloBoard.java" />
-      <change beforePath="$PROJECT_DIR$/gbe/src/players/Player.java" afterPath="$PROJECT_DIR$/gbe/src/players/Player.java" />
-      <change beforePath="$PROJECT_DIR$/output/production/GameBoardEnvironment/game/OthelloBoard$MyActionListener.class" afterPath="$PROJECT_DIR$/output/production/GameBoardEnvironment/game/OthelloBoard$MyActionListener.class" />
-      <change beforePath="$PROJECT_DIR$/output/production/GameBoardEnvironment/game/OthelloBoard.class" afterPath="$PROJECT_DIR$/output/production/GameBoardEnvironment/game/OthelloBoard.class" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -43,7 +30,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Driver.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Driver.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gbe/src/environment/Driver.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-425">
@@ -115,11 +102,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OthelloBoard.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="OthelloBoard.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gbe/src/game/OthelloBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+            <state relative-caret-position="230">
+              <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -939,14 +926,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gbe/src/game/OthelloBoard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gbe/src/environment/Driver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-425">
@@ -954,6 +933,14 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gbe/src/game/OthelloBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

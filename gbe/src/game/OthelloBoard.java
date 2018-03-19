@@ -45,24 +45,6 @@ public class OthelloBoard implements Board {
     }
 
     public void drawBoard(String gameType) {
-//        frame = new JFrame(gameType);
-//        frame.setDefaultCloseOperation(frame.DISPOSE_ON_CLOSE);
-//        frame.setLocation(500, 100);
-//        JPanel game = new JPanel(new GridLayout(8, 8));
-//        game.setPreferredSize(new Dimension(600, 600));
-//        frame.setLayout(new BorderLayout());
-//        frame.setSize(300, 300);
-
-        //creates the status bar panel and shoves it down the bottom of the frame
-//        statusPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
-//        frame.add(statusPanel, BorderLayout.SOUTH);
-//        statusPanel.setPreferredSize(new Dimension(frame.getWidth(), 50));
-//        statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
-//        JLabel status = new JLabel("<html>" + "<strong>Player 1:</strong> " + state.pm.score.get(state.pm.p1) + "<br/><strong>Player 2:</strong> " +
-//                state.pm.score.get(state.pm.p2) + "</html>"); // value, here will be username and score,
-//        status.setFont(new Font("Serif", Font.PLAIN, 18));
-//        status.setHorizontalAlignment(SwingConstants.CENTER);
-//        statusPanel.add(status);
 
         try {
             UIManager.setLookAndFeel(new javax.swing.plaf.metal.MetalLookAndFeel());
