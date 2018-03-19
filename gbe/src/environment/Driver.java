@@ -18,7 +18,6 @@ public class Driver extends JFrame{
 
 	public Driver() {
 		super();
-
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 

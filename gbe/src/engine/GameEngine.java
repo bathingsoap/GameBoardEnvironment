@@ -1,8 +1,5 @@
 package engine;
 
-import players.*;
-import gui.*;
-
 public class GameEngine {
 
 	GameLogic logic;

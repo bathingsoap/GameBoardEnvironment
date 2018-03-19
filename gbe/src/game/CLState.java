@@ -23,7 +23,7 @@ public class CLState extends State {
         for(Player p: players){
             score.put(p,0);
         }
-        logic  = new CLLogic();
+        logic  = new CLLogic(this);
     }
     
     @Override
@@ -117,7 +117,17 @@ public class CLState extends State {
         }
         board.movePlayer(p, a, b, oldA, oldB, sameScore);      
     }
-    
+
+    @Override
+    public void makeMove(int x, int y) {
+        return;
+    }
+
+    @Override
+    public void update(int x, int y) {
+        return;
+    }
+
     public void restart() {
         this.playerTurn = players[0];
         for(Player p: players){

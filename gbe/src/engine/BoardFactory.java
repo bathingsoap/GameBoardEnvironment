@@ -5,8 +5,6 @@ import game.GomokuBoard;
 import game.OthelloBoard;
 import game.MemoryBoard;
 
-import javax.swing.JPanel;
-
 public class BoardFactory {
 	public BoardFactory(){
 

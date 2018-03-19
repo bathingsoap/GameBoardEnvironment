@@ -11,9 +11,11 @@ public class CLLogic extends GameLogic{
     private HashMap<Integer,String> numberIndeces;
     private HashMap<Integer,Integer> latterMoves;
     private HashMap<Integer,Integer> chuteMoves;
+    CLState state;
     
-    
-    public CLLogic(){
+    public CLLogic(CLState state){
+        super(state);
+        this.state = state;
         numberIndeces = new HashMap<>();
         latterMoves = new HashMap<>();
         chuteMoves = new HashMap<>();
@@ -21,29 +23,26 @@ public class CLLogic extends GameLogic{
         fillLatterMoves();
         fillChuteMoves();
     }
-    
-    public void update(CLState state){
-        Player player = state.getCurrentTurn();
-        HashMap<Player,Integer> score = state.getScore();
+
+    @Override
+    public void update(State state){
+        Player player = this.state.getCurrentTurn();
+        HashMap<Player,Integer> score = this.state.getScore();
         Integer playerLocation = score.get(player);
         Integer dieRoll = rollDie();
         
         
     }
-    
-//    public Player currentTurn(State state){
-//        
-//    }
-//    
-    public void checkWinningState(State state){
-        
+
+    public boolean checkWinningState() {
+        return false;
     }
-    
-    public boolean checkMove(){
+
+    public boolean checkMove(int x, int y){
         return false;
         
     }
-    
+
     public int rollDie(){
         Random rand = new Random();
         return rand.nextInt(6) + 1;
@@ -111,16 +110,4 @@ public class CLLogic extends GameLogic{
         return numberIndeces.get(position);
     }
 
-    @Override
-    public void update(State state) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Player currentTurn(State state) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-            
-    
 }
