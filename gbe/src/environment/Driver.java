@@ -86,8 +86,25 @@ public class Driver extends JFrame{
 		c.gridx = 1; c.gridy = 5;
 		JLabel p2w = new JLabel("---");
 		mainPanel.add(p2w,c);
-		
-		c.gridx = 0; c.gridy = 6; c.gridwidth = 2;
+
+		c.gridx = 0; c.gridy = 6;
+		JLabel p1h = new JLabel("---");
+		mainPanel.add(p1h, c);
+
+		c.gridx = 1; c.gridy = 6;
+		JLabel p2h = new JLabel("---");
+		mainPanel.add(p2h, c);
+
+		c.gridx = 0; c.gridy = 7;
+		JLabel p1t = new JLabel("---");
+		mainPanel.add(p1t, c);
+
+		c.gridx = 1; c.gridy = 7;
+		JLabel p2t = new JLabel("---");
+		mainPanel.add(p2t, c);
+
+
+		c.gridx = 0; c.gridy = 8; c.gridwidth = 2;
 		playButton = new JButton("Play");
 		playButton.setEnabled(false);
 		mainPanel.add(playButton, c);
@@ -117,8 +134,12 @@ public class Driver extends JFrame{
 				pm.setPlayer2(p2text.getText());
 				p1text.setText("");
 				p2text.setText("");
+				p1t.setText("---");
+				p1h.setText("---");
 				p1w.setText("---");
 				p1l.setText("---");
+				p2t.setText("---");
+				p2h.setText("---");
 				p2w.setText("---");
 				p2l.setText("---");
 				
@@ -148,7 +169,9 @@ public class Driver extends JFrame{
 				else {
 					p=pm.players.get(pm.containPlayer(p1text.getText()));
 				}
-				
+
+				p1t.setText("Favorite Game: " + p.getFavoriteGame().getKey() + "(" + p.getFavoriteGame().getValue() + ")");
+				p1h.setText("Total Games Played: " + p.getTotalGamesPlayed());
 				p1w.setText("Wins: " + p.getWins());
 				p1l.setText(p1text.getText());
 				//frame.repaint();
@@ -165,6 +188,8 @@ public class Driver extends JFrame{
 				else {
 					p=pm.players.get(pm.containPlayer(p2text.getText()));
 				}
+				p2t.setText("Favorite Game: " + p.getFavoriteGame().getKey() + "(" + p.getFavoriteGame().getValue() + ")");
+				p2h.setText("Total Games Played: " + p.getTotalGamesPlayed());
 				p2w.setText("Wins: " + p.getWins());
 				p2l.setText(p2text.getText());
 				

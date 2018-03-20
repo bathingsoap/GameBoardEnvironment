@@ -31,14 +31,15 @@ import javax.swing.border.LineBorder;
 import players.Player;
 import players.PlayerManager;
 
-
 public class CLBoard implements Board, ActionListener {
-    
-    JButton[][] buttons;
+
+    private static final String GAMETYPE = "Chutes and Ladders";
+
+//    JButton[][] buttons;
     JLabel[][] labels;
   	JPanel gbl;
     JFrame frame;
-    Player p1; Player p2;
+//    Player p1; Player p2;
     
     String blackPiecePath;
     String whitePiecePath;
@@ -73,14 +74,14 @@ public class CLBoard implements Board, ActionListener {
     JButton restart;
     JButton exit;
 
-    State state;
+    CLState state;
     boolean winner = false;
     
     JPanel game;
     private PlayerManager pm;
     
-    int buttonWidth;
-    int buttonHeight;
+//    int buttonWidth;
+//    int buttonHeight;
     
     
     
@@ -324,12 +325,12 @@ public class CLBoard implements Board, ActionListener {
     			state.makeMove();
     		}
         if(e.getActionCommand().equals("restart")) {
-        	state.restart();
-        	for (int i = 0; i < 10; i++) { // row
-                for (int j = 0; j < 10; j++) { // col
-                    
-                }
-            }
+            // reset winner to allow for new move
+            this.winner = false;
+
+            // reset state
+            state.restart(this);
+
         }
         if(e.getActionCommand().equals("exit")) {
         	frame.dispose();

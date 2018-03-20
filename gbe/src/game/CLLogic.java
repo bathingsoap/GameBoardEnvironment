@@ -29,8 +29,9 @@ public class CLLogic extends GameLogic{
         
     }
 
+    @Override
     public boolean checkWinningState() {
-        return false;
+        return state.checkWinState();
     }
 
     public boolean checkMove(int x, int y){
@@ -38,7 +39,7 @@ public class CLLogic extends GameLogic{
         
     }
 
-    public int rollDie(){
+    public int rollDie(){           // abstracted to SixSidedDice in Pieces for other future games that use dice
         Random rand = new Random();
         return rand.nextInt(6) + 1;
     }

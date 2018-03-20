@@ -6,6 +6,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class OthelloState extends State{
+    private static final String GAMETYPE = "Othello";
     String[][] pieces; //[row][col]
     ArrayList<ArrayList<Integer>> row_moves = new ArrayList<>();
     ArrayList<ArrayList<Integer>> col_moves = new ArrayList<>();
@@ -18,7 +19,7 @@ public class OthelloState extends State{
 
     public OthelloState(){
         pm = PlayerManager.getInstance();
-        pm.newGame();
+        pm.newGame(GAMETYPE);
         pm.setScore(pm.p1, 2);
         pm.setScore(pm.p2, 2);
         pm.p1.setPlayerPiece("black");
@@ -63,7 +64,7 @@ public class OthelloState extends State{
 
     @Override
     public void restart() {
-    	pm.newGame();
+    	pm.newGame(GAMETYPE);
     	 pm.setScore(pm.p1, 2);
          pm.setScore(pm.p2, 2);
          pieces = new String[8][8];

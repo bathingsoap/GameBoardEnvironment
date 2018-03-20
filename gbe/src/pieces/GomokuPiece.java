@@ -11,7 +11,7 @@ public class GomokuPiece implements Piece {
 
 	@Override
 	public void createPiece() {	}
-	
+
     @Override
     public void createPiece(int x, int y, Color color) {
         this.x = x;

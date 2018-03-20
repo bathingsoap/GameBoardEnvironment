@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class GomokuPanel extends JPanel implements MouseListener {
+    private static final String GAMETYPE = "Gomoku";
+
 	private GomokuLogic gomokuLogic = new GomokuLogic();
     private GomokuState gomokuState = GomokuState.getInstance();
     private String turn = gomokuState.getTurn();
@@ -161,6 +163,7 @@ public class GomokuPanel extends JPanel implements MouseListener {
         status = false;
         gomokuState.resetPiece();
         turn = "Black";
+        pm.newGame(GAMETYPE);
         repaint();
     }
 

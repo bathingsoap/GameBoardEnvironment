@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class GomokuBoard extends JFrame implements Board {
+    private static final String GAMETYPE = "Gomoku";
     private String gameName;
 	private GomokuPanel gomokuPanel = new GomokuPanel();
     private GomokuState gomokuState = GomokuState.getInstance();
@@ -25,6 +26,7 @@ public class GomokuBoard extends JFrame implements Board {
     public GomokuBoard() {
         setTitle(gameName);
         pm = PlayerManager.getInstance();
+        pm.newGame(GAMETYPE);
         Panel buttons = new Panel();
         buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
         buttons.add(restartButton);

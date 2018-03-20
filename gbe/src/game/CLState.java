@@ -2,14 +2,17 @@ package game;
 
 import engine.State;
 import players.*;
+import pieces.*;
 
 public class CLState extends State {
+    private static final String GAMETYPE = "Chutes and Ladders";
     private CLBoard board;
     private Player playerTurn;
     //private HashMap<Player,Integer> score;
     private CLLogic logic;
     private PlayerManager pm;
     private int turnInt;
+    private SixSidedDice dice = new SixSidedDice();
     
     public CLState(CLBoard board){
         this.board = board;
@@ -17,7 +20,7 @@ public class CLState extends State {
         turnInt = 0;
         logic  = new CLLogic(this);
         
-        pm.newGame();
+        pm.newGame(GAMETYPE);
     }
     
     @Override
@@ -27,10 +30,13 @@ public class CLState extends State {
 
     @Override
     public void makeMove() {
+        String name = pm.getCurrentPlayer().username;
         Integer currentPosition = pm.getScore(pm.getCurrentPlayer());
-        Integer die = logic.rollDie();
-        board.updateMessage1("You rolled a " + die + "!");
-        Integer newPosition = currentPosition + die;
+        dice.rollDie();
+//        Integer die = logic.rollDie();
+
+        board.updateMessage1(name + " rolled a " + dice.getRecentRoll() + "!");
+        Integer newPosition = currentPosition + dice.getRecentRoll();
         
         if((newPosition) > 100){
             newPosition = currentPosition;
@@ -120,6 +126,12 @@ public class CLState extends State {
                   
     }
 
+    public boolean checkWinState(){
+        if(board.p1Position.equals("100") || board.p2Position.equals("100"))
+            return true;
+        return false;
+    }
+
     @Override
     public void makeMove(int x, int y) {
         return;
@@ -131,16 +143,29 @@ public class CLState extends State {
     }
 
     public void restart() {
-        pm.newGame();
+        // restart Player Managers
+        pm.newGame(GAMETYPE);
+
+        turnInt = 0;
+
+        // restart board
         board.updateMessage1("---");
         board.updateMessage2("---");
         board.updateMessage3("---");
         board.updateMessage4("---");
         board.updateMessage5("---");
+        board.removePlayer();
         board.updateP1Position("0");
         board.updateP2Position("0");
-        board.removePlayer();
+
+        // restart logic by creating new instance of logic
+        logic = new CLLogic(this);
         
+    }
+
+    public void restart(CLBoard board) {
+        this.board = board;
+        this.restart();
     }
 
 	@Override

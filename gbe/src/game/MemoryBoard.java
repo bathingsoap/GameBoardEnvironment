@@ -15,6 +15,7 @@ import java.util.*;
 
 public class MemoryBoard implements Board {
     private static final Character[] LETTERS = {'A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H'};
+    private static final String GAMETYPE = "Memory";
     private JButton[][] buttons = new JButton[4][4];
     private JFrame gameframe;
     private StatusBar statusBar;
@@ -30,7 +31,7 @@ public class MemoryBoard implements Board {
     public MemoryBoard() {
         statusBar = new StatusBar();
         pm = PlayerManager.getInstance();
-        pm.newGame();
+        pm.newGame(GAMETYPE);
         lock = new Object();
         this.invisibleVal = new HashMap<JButton, Character>();
         this.buttonCoords = new HashMap<JButton, int[]>();

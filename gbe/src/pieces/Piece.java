@@ -3,7 +3,7 @@ package pieces;
 import java.awt.Color;
 
 public interface Piece {
-	
+
 	void createPiece();
     void createPiece(int x, int y, Color color);
 

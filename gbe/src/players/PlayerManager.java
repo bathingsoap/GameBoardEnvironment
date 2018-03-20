@@ -1,22 +1,19 @@
 package players;
 
-import players.*;
 import java.util.*;
 import java.util.Map.Entry;
 
-import engine.*;
-
 public class PlayerManager {
 	public ArrayList<Player> players = new ArrayList<Player>();
-	public Player p1; // ArrayList to include unlimited number of players (maybe people can log in and log out?
+	public Player p1; // ArrayList to include unlimited number of players (maybe people can log in and log out?)
 	public Player p2;
 	public HashMap<Player, Integer> score = new HashMap<Player, Integer>();
 	//public HashMap<Player, Integer> wins = new HashMap<Player, Integer>();
 	public Player currentPlayer;
-	private static PlayerManager pm = null;
+	private static PlayerManager pm = null; //Singleton
 	
 	private PlayerManager() {
-		
+		// private for Singleton
 	}
 	
 	public static PlayerManager getInstance() {
@@ -57,10 +54,22 @@ public class PlayerManager {
 		
 		return -1;
 	}
-	
+
+	public void newGame(String gameType){
+		p1.incrementGame(gameType);
+		p2.incrementGame(gameType);
+		newGame();
+	}
+
 	public void newGame() {
 		currentPlayer = p1;
 		p1.isTurn = true;
+
+		// add game for each player
+		p1.totalGamesPlayed++;
+		p2.totalGamesPlayed++;
+
+		// clear scores
 		for (Entry<Player, Integer> entry : score.entrySet()) {
 	          score.put(entry.getKey(), 0);
 	      }
