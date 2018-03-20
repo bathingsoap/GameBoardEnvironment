@@ -70,16 +70,13 @@ public class OthelloState extends State{
          for(int i = 0; i < 8; i++){
              for(int j = 0; j < 8; j++){
                  pieces[i][j] = "";
-                 System.out.print(pieces[i][j]);
              }
-             System.out.println();
          }
-         
+
          pieces[3][3] = "white";
          pieces[4][4] = "white";
          pieces[3][4] = "black";
          pieces[4][3] = "black";
-         System.out.println(pieces[3][3]);
          movesLeft = new ArrayList<>();
          setMovesLeft();
          

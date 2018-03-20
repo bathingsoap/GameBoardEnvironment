@@ -34,23 +34,6 @@ public class OthelloBoard implements Board, ActionListener {
         frame.setLayout(new BorderLayout());
         frame.setSize(300, 300);
 
-        /*
-        statusPanel = new JPanel(); // container
-//        statusPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
-        statusPanel.setBackground(new Color(100, 72, 29));
-        statusPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        frame.add(statusPanel, BorderLayout.SOUTH);
-        statusPanel.setPreferredSize(new Dimension(frame.getWidth(), 60));
-        statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS));
-        status = new JLabel("<html>" + "<strong>Player 1:</strong> " + state.pm.score.get(state.pm.p1) + "<br/><strong>Player 2:</strong> " +
-                state.pm.score.get(state.pm.p2) + "</html>"); // value, here will be username and score,
-        status.setForeground(Color.white);
-        status.setFont(new Font("Arial", Font.PLAIN, 18));
-        status.setHorizontalAlignment(SwingConstants.CENTER);
-        statusPanel.add(status);
-        */
-        
-        
         optionPanel = new JPanel(new GridBagLayout());
     	GridBagConstraints c = new GridBagConstraints();
     	
@@ -61,7 +44,7 @@ public class OthelloBoard implements Board, ActionListener {
 	      frame.add(statusPanel, BorderLayout.SOUTH);
 	      statusPanel.setPreferredSize(new Dimension(frame.getWidth(), 60));
 	      statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS));
-	      status = new JLabel("<html>" + "<strong>"+state.pm.p1.getUsername()+": </strong> " + state.pm.getScore(state.pm.p1) + "<br/><strong>"+state.pm.p2.getUsername()+": </strong> " +
+	      status = new JLabel("<html>" + "<strong>"+state.pm.p1.getUsername()+" ("+(String) state.pm.p1.getPlayerPiece() + "): </strong> " + state.pm.getScore(state.pm.p1) + "<br/><strong>"+state.pm.p2.getUsername()+" ("+(String) state.pm.p2.getPlayerPiece() + "): </strong> " +
    	              state.pm.getScore(state.pm.p2) + "</html>");
 	      status.setForeground(Color.white);
 	      status.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -147,25 +130,23 @@ public class OthelloBoard implements Board, ActionListener {
                 }
             }
             // update label here
-            status.setText("<html>" + "<html>" + "<strong>"+state.pm.p1.getUsername()+": </strong> " + state.pm.getScore(state.pm.p1) + "<br/><strong>"+state.pm.p2.getUsername()+": </strong> " +
+            status.setText("<html>" + "<html>" + "<strong>"+state.pm.p1.getUsername()+ " ("+(String) state.pm.p1.getPlayerPiece() + "): </strong> " + state.pm.getScore(state.pm.p1) + "<br/><strong>"+state.pm.p2.getUsername()+" ("+(String) state.pm.p2.getPlayerPiece() + "): </strong> " +
      	              state.pm.getScore(state.pm.p2) + "</html>");
 
             //check winning state
             if(logic.checkWinningState()){
-                if (state.movesLeft.isEmpty()) {
-                    if (pm.getScore(pm.p1) > pm.getScore(pm.p2)) {
-                        JOptionPane.showMessageDialog(null, state.pm.p1.getUsername()+" has won with a score of: " + pm.getScore(pm.p1) + " . While " +
-                        		state.pm.p2.getUsername() + " has a score of: " + pm.getScore(pm.p2));
-                        pm.scoreWin(pm.p1);
-                        frame.dispose();
-                    } else if (pm.getScore(pm.p2) > pm.getScore(pm.p1)) {
-                        JOptionPane.showMessageDialog(null, state.pm.p2.getUsername()+ " has won with a score of: " + pm.getScore(pm.p2) + " . While " +
-                        		state.pm.p1.getUsername()+ " has a score of: " + pm.getScore(pm.p1));
-                        pm.scoreWin(pm.p2);
-                        frame.dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Nobody won, it was a tie!");
-                    }
+                if (pm.getScore(pm.p1) > pm.getScore(pm.p2)) {
+                    JOptionPane.showMessageDialog(null, state.pm.p1.getUsername()+" has won with a score of: " + pm.getScore(pm.p1) + " . While " +
+                            state.pm.p2.getUsername() + " has a score of: " + pm.getScore(pm.p2));
+                    pm.scoreWin(pm.p1);
+                    frame.dispose();
+                } else if (pm.getScore(pm.p2) > pm.getScore(pm.p1)) {
+                    JOptionPane.showMessageDialog(null, state.pm.p2.getUsername()+ " has won with a score of: " + pm.getScore(pm.p2) + " . While " +
+                            state.pm.p1.getUsername()+ " has a score of: " + pm.getScore(pm.p1));
+                    pm.scoreWin(pm.p2);
+                    frame.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nobody won, it was a tie!");
                 }
             }
             //clear row,col,diagonal moves

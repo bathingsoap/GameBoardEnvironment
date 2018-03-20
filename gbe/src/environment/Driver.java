@@ -33,11 +33,7 @@ public class Driver extends JFrame{
 	public void mainMenu(){
 		JPanel mainPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-         
-                
 
-               
-		
 		c.gridx= 0; c.gridy=1;
 		JLabel mainLabel = new JLabel("Pick a game:");
 		mainPanel.add(mainLabel, c);
@@ -95,8 +91,6 @@ public class Driver extends JFrame{
 		playButton = new JButton("Play");
 		playButton.setEnabled(false);
 		mainPanel.add(playButton, c);
-		//mainPanel.setPreferredSize(new Dimension(500,500));
-                
             try {
                 c.gridx = 0;c.gridy = 0; c.gridwidth= 2;
                 Image img = ImageIO.read(getClass().getResource(logoPath));
@@ -113,40 +107,7 @@ public class Driver extends JFrame{
 		frame.add(mainPanel);
 		frame.pack();
 		frame.setVisible(true);
-		/*
-		JPanel mainPanel = new JPanel(new GridLayout(4,2));
-		JLabel mainLabel = new JLabel("Pick a game:");
-		mainLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		mainPanel.add(mainLabel);
-		games = new JComboBox<String>(availableGames);
-		gameType= availableGames[0];
-		mainPanel.add(games);
-		JLabel playerone = new JLabel("Player One");
-		JLabel playertwo = new JLabel("Player Two");
-		playerone.setHorizontalAlignment(SwingConstants.CENTER);
-		playertwo.setHorizontalAlignment(SwingConstants.CENTER);
-		mainPanel.add(playerone);
-		mainPanel.add(playertwo);
-		JPanel leftTextFieldPanel = new JPanel();
-		JPanel rightTextFieldPanel = new JPanel();
-		JTextField playerOneTextField = new JTextField();
-		playerOneTextField.setPreferredSize(new Dimension(225,20));
-		JTextField playerTwoTextField = new JTextField();
-		playerTwoTextField.setPreferredSize(new Dimension(225,20));
-		leftTextFieldPanel.add(playerOneTextField);
-		rightTextFieldPanel.add(playerTwoTextField);
-		mainPanel.add(leftTextFieldPanel);
-		mainPanel.add(rightTextFieldPanel);
-		mainPanel.add(new JPanel());
-		playButton = new JButton("Play");
-		mainPanel.add(playButton);
-		mainPanel.setPreferredSize(new Dimension(500,500));
-		frame.add(mainPanel);
-		frame.pack();
-		frame.setVisible(true);
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setLocation(dim.width/2-250, dim.height/2-250);
-		*/
+
 		//Play button -> create new Game
 		playButton.addActionListener(new ActionListener() {
 			@Override
