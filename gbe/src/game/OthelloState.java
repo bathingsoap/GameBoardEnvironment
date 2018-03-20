@@ -1,6 +1,5 @@
 package game;
 import engine.State;
-import org.omg.PortableInterceptor.INACTIVE;
 import players.*;
 
 import java.awt.*;
@@ -15,17 +14,15 @@ public class OthelloState extends State{
     ArrayList<ArrayList<Integer>> movesLeft = new ArrayList<>();
     int currentX; //row
     int currentY; //col
-    Player p1; Player p2;
     PlayerManager pm;
 
     public OthelloState(){
-        p1 = new Player("player1"); // black moves first
-        p2 = new Player("player2");
-        p1.setPlayerPiece("black");
-        p2.setPlayerPiece("white");
-        pm = new PlayerManager(p1, p2);
-        pm.score.put(this.p1, 2);
-        pm.score.put(this.p2, 2);
+        pm = PlayerManager.getInstance();
+        pm.newGame();
+        pm.setScore(pm.p1, 2);
+        pm.setScore(pm.p2, 2);
+        pm.p1.setPlayerPiece("black");
+        pm.p2.setPlayerPiece("white");
         pieces = new String[8][8];
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
@@ -37,14 +34,6 @@ public class OthelloState extends State{
         pieces[3][4] = "black";
         pieces[4][3] = "black";
         setMovesLeft();
-    }
-
-    @Override
-    public Player getCurrentTurn() {
-        if(p1.isTurn()) {
-            return p1;
-        }
-        else return p2;
     }
 
     @Override
@@ -74,12 +63,11 @@ public class OthelloState extends State{
 
     @Override
     public void restart() {
-
+    	pm.newGame();
     }
 
     @Override
     public void exit() {
-
     }
 
     @Override
@@ -127,8 +115,8 @@ public class OthelloState extends State{
                 }
             }
         }
-        pm.score.put(player1, player1_score);
-        pm.score.put(player2, player2_score);
+        pm.setScore(player1, player1_score);
+        pm.setScore(player2, player2_score);
     }
 
     private void setMovesLeft(){
@@ -259,5 +247,10 @@ public class OthelloState extends State{
             }
         }
         return;
-    };
+    }
+
+	@Override
+	public Player getCurrentTurn() {
+		return pm.getCurrentPlayer();
+	};
 }

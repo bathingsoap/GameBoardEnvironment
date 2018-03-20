@@ -1,6 +1,7 @@
 package game;
 
 import engine.Board;
+import players.PlayerManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +10,7 @@ import javax.swing.border.LineBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class OthelloBoard implements Board {
+public class OthelloBoard implements Board, ActionListener {
     JButton[][] buttons = new JButton[8][8];
     JFrame frame;
     OthelloState state;
@@ -17,6 +18,9 @@ public class OthelloBoard implements Board {
     JPanel game;
     JPanel statusPanel;
     JLabel status;
+    JPanel optionPanel;
+    JButton restart;
+    JButton exit;
 
     public OthelloBoard() {
         state = new OthelloState();
@@ -29,19 +33,57 @@ public class OthelloBoard implements Board {
         frame.setLayout(new BorderLayout());
         frame.setSize(300, 300);
 
+        /*
         statusPanel = new JPanel(); // container
 //        statusPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
         statusPanel.setBackground(new Color(100, 72, 29));
         statusPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         frame.add(statusPanel, BorderLayout.SOUTH);
         statusPanel.setPreferredSize(new Dimension(frame.getWidth(), 60));
-        statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
+        statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS));
         status = new JLabel("<html>" + "<strong>Player 1:</strong> " + state.pm.score.get(state.pm.p1) + "<br/><strong>Player 2:</strong> " +
                 state.pm.score.get(state.pm.p2) + "</html>"); // value, here will be username and score,
         status.setForeground(Color.white);
         status.setFont(new Font("Arial", Font.PLAIN, 18));
         status.setHorizontalAlignment(SwingConstants.CENTER);
         statusPanel.add(status);
+        */
+        
+        
+        optionPanel = new JPanel(new GridBagLayout());
+    	GridBagConstraints c = new GridBagConstraints();
+    	
+    	c.gridx=0;c.gridy=0; c.gridwidth = 2;
+    	  statusPanel = new JPanel(); // container
+	      statusPanel.setBackground(new Color(100, 72, 29));
+	      statusPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+	      frame.add(statusPanel, BorderLayout.SOUTH);
+	      statusPanel.setPreferredSize(new Dimension(frame.getWidth(), 60));
+	      statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS));
+	      status = new JLabel("<html>" + "<strong>Player 1:</strong> " + state.pm.score.get(state.pm.p1) + "<br/><strong>Player 2:</strong> " +
+	              state.pm.score.get(state.pm.p2) + "</html>"); // value, here will be username and score,
+	      status.setForeground(Color.white);
+	      status.setFont(new Font("Arial", Font.PLAIN, 18));
+	      status.setHorizontalAlignment(SwingConstants.CENTER);
+	      statusPanel.add(status);
+    	optionPanel.add(statusPanel,c);
+      
+    	c.gridwidth=1;
+    	c.weightx = 0.1;
+    	c.gridx=0;
+    	c.gridy=1;
+    	restart = new JButton("restart");
+    	exit = new JButton("exit");
+    	restart.addActionListener(this);
+    	exit.addActionListener(this);
+    	optionPanel.add(restart, c);
+    	c.gridx=1;
+    	optionPanel.add(exit, c);
+    	
+    
+    	
+    	
+    	frame.add(optionPanel, BorderLayout.SOUTH);
     }
 
     public void drawBoard(String gameType) {
@@ -82,6 +124,7 @@ public class OthelloBoard implements Board {
 
     private class MyActionListener implements ActionListener {
         public void actionPerformed(ActionEvent a) {
+        	PlayerManager pm = PlayerManager.getInstance();
             JButton click = (JButton) a.getSource();
             for (int row = 0; row < 8; row++) {
                 for (int col = 0; col < 8; col++) {
@@ -109,12 +152,12 @@ public class OthelloBoard implements Board {
             //check winning state
             if(logic.checkWinningState()){
                 if (state.movesLeft.isEmpty()) {
-                    if (state.pm.score.get(state.p1) > state.pm.score.get(state.p2)) {
-                        JOptionPane.showMessageDialog(null, "Player 1 has won with a score of: " + state.pm.score.get(state.p1) + " . While " +
-                                "Player 2 has a score of: " + state.pm.score.get(state.p2));
-                    } else if (state.pm.score.get(state.p2) > state.pm.score.get(state.p1)) {
-                        JOptionPane.showMessageDialog(null, "Player 2 has won with a score of: " + state.pm.score.get(state.p2) + " . While " +
-                                "Player 1 has a score of: " + state.pm.score.get(state.p1));
+                    if (pm.getScore(pm.p1) > pm.getScore(pm.p2)) {
+                        JOptionPane.showMessageDialog(null, "Player 1 has won with a score of: " + pm.getScore(pm.p1) + " . While " +
+                                "Player 2 has a score of: " + pm.getScore(pm.p2));
+                    } else if (pm.getScore(pm.p2) > pm.getScore(pm.p1)) {
+                        JOptionPane.showMessageDialog(null, "Player 2 has won with a score of: " + pm.getScore(pm.p2) + " . While " +
+                                "Player 1 has a score of: " + pm.getScore(pm.p1));
                     } else {
                         JOptionPane.showMessageDialog(null, "Nobody won, it was a tie!");
                     }
@@ -126,6 +169,17 @@ public class OthelloBoard implements Board {
             state.diagonal_moves.clear();
         }
     }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+        if(e.getActionCommand().equals("restart")) {
+        	state.restart();
+        	//frame.repaint();
+        }
+        if(e.getActionCommand().equals("exit")) {
+        	frame.dispose();
+        }
+	}
 }
 
 

@@ -27,8 +27,6 @@ public class CLLogic extends GameLogic{
     @Override
     public void update(State state){
         Player player = this.state.getCurrentTurn();
-        HashMap<Player,Integer> score = this.state.getScore();
-        Integer playerLocation = score.get(player);
         Integer dieRoll = rollDie();
         
         

@@ -174,9 +174,8 @@ public class CLBoard implements Board, ActionListener {
         frame.pack();
         frame.setVisible(true);
         frame.setPreferredSize(new Dimension(600,600));
-        state  = new CLState(this, new PlayerManager(new Player("1"), new Player("2")));
+        state  = new CLState(this);
         
-        System.out.println(frame.getSize());
     }
     
     public JPanel drawInfoBoard() {

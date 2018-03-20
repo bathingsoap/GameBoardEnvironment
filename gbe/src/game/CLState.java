@@ -10,20 +10,18 @@ import java.util.HashMap;
 public class CLState extends State {
     private CLBoard board;
     private Player playerTurn;
-    private Player[] players;
-    private HashMap<Player,Integer> score;
+    //private HashMap<Player,Integer> score;
     private CLLogic logic;
+    private PlayerManager pm;
+    private int turnInt;
     
-    
-    public CLState(CLBoard board, PlayerManager playerManager){
+    public CLState(CLBoard board){
         this.board = board;
-        this.players = playerManager.getPlayers();
-        this.playerTurn = players[0];
-        score = new HashMap<>();
-        for(Player p: players){
-            score.put(p,0);
-        }
+        pm = PlayerManager.getInstance();
+        turnInt = 0;
         logic  = new CLLogic(this);
+        
+        pm.newGame();
     }
     
     @Override
@@ -34,7 +32,7 @@ public class CLState extends State {
     @Override
     public void makeMove() {
         boolean winner = false;
-        Integer currentPosition = score.get(getCurrentTurn());
+        Integer currentPosition = pm.getScore(pm.getCurrentPlayer());
         Integer die = logic.rollDie();
         board.updateMessage1("You rolled a " + die + "!");
         Integer newPosition = currentPosition + die;
@@ -49,7 +47,7 @@ public class CLState extends State {
             board.updateMessage3("Congratulations, you win!");
             board.updateMessage4("---");
             board.updateWinner(true);
-            score.put(playerTurn, newPosition);
+            pm.setScore(pm.getCurrentPlayer(), newPosition);
             winner = true;
         }else{
             board.updateMessage2("You are now on space " + newPosition + ".");
@@ -68,13 +66,15 @@ public class CLState extends State {
                     board.updateMessage3("Congratulations, you win!");
                     board.updateMessage4("---");
                     board.updateWinner(true);
-                    score.put(playerTurn, newPosition);
+                    pm.setScore(pm.getCurrentPlayer(), newPosition);
                     winner = true;
                 }
             }
         }
-        score.put(playerTurn, newPosition);
+        pm.setScore(pm.getCurrentPlayer(), newPosition);
         
+       
+        /*
         if(players[0].equals(getCurrentTurn())){
             board.updateP1Position(Integer.toString(newPosition));
             playerTurn = players[1];
@@ -87,7 +87,7 @@ public class CLState extends State {
             if(!winner)
                 board.updateTurnLabel("Player 1:");
         }
-        
+        */
         
         int oldA = 0;
         int oldB = 0;
@@ -103,19 +103,26 @@ public class CLState extends State {
         int b = Integer.parseInt(indeces[1]);
         
    
+ 
         
-        int p =1;
-        if(players[1].equals(getCurrentTurn()))
-            p = 2;    
-        
-        Integer s1 = -1;
         boolean sameScore = false;
-        for(Integer s2: score.values()){
-            if(s2.equals(s1))
-                sameScore = true;
-            s1 = s2;
+        if(pm.getScore(pm.p1)==pm.getScore(pm.p2)) {
+        	sameScore = true;
         }
-        board.movePlayer(p, a, b, oldA, oldB, sameScore);      
+        
+        board.movePlayer(turnInt, a, b, oldA, oldB, sameScore);
+        
+        if(turnInt == 0) {
+        	board.updateP1Position(Integer.toString(newPosition));
+        	turnInt=1;board.updateTurnLabel("Player 2:");
+        }
+        else {
+        	board.updateP2Position(Integer.toString(newPosition));
+        	turnInt=0;board.updateTurnLabel("Player 1:");
+        }
+        pm.swapTurn();
+        
+                  
     }
 
     @Override
@@ -129,10 +136,7 @@ public class CLState extends State {
     }
 
     public void restart() {
-        this.playerTurn = players[0];
-        for(Player p: players){
-            score.put(p,0);
-        }
+        pm.newGame();
         board.updateMessage1("---");
         board.updateMessage2("---");
         board.updateMessage3("---");
@@ -142,9 +146,6 @@ public class CLState extends State {
         board.updateP2Position("0");
         board.removePlayer();
         
-    }
-    public HashMap<Player,Integer> getScore(){
-        return score;
     }
 
 	@Override

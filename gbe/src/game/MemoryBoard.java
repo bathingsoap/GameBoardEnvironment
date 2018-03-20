@@ -21,7 +21,6 @@ public class MemoryBoard implements Board {
     private PlayerManager pm;
     private java.util.List<Integer> loggedMoves;
     private int availableCards = 16;
-    private Player p1, p2;
     private int moveCounter;
     private Map<JButton, Character> invisibleVal;
     private Map<JButton, int[]> buttonCoords;
@@ -30,9 +29,8 @@ public class MemoryBoard implements Board {
 
     public MemoryBoard() {
         statusBar = new StatusBar();
-        p1 = new Player("player1");
-        p2 = new Player("player2");
-        this.pm = new PlayerManager(p1, p2);
+        pm = PlayerManager.getInstance();
+        pm.newGame();
         lock = new Object();
         this.invisibleVal = new HashMap<JButton, Character>();
         this.buttonCoords = new HashMap<JButton, int[]>();
@@ -87,8 +85,8 @@ public class MemoryBoard implements Board {
             this.availableCards = this.availableCards - 2;
             buttons[first_row][first_col].setVisible(false);
             buttons[second_row][second_col].setVisible(false);
-            pm.scorePoint(pm.currentPlayer);
-            statusBar.setStatus("Current player has made a match, it is still their turn! Their score is: " + this.pm.score.get(pm.currentPlayer));
+            pm.scorePoint(pm.getCurrentPlayer());
+            statusBar.setStatus("Current player has made a match, it is still their turn! Their score is: " + this.pm.getScore(pm.currentPlayer));
             checkWinner();
             return true;
         } else {
@@ -102,16 +100,21 @@ public class MemoryBoard implements Board {
 
     public boolean checkWinner() {
         if (this.availableCards == 0) {
-            if (this.pm.score.get(p1) > this.pm.score.get(p2)) {
-                JOptionPane.showMessageDialog(null, "Player 1 has won with a score of: " + this.pm.score.get(p1) + " . While " +
-                        "Player 2 has a score of: " + this.pm.score.get(p2));
+        	System.out.println("Player 1: "+ pm.getScore(pm.p1));
+        	System.out.println("Player 2: "+pm.getScore(pm.p2));
+            if (this.pm.getScore(pm.p1) > this.pm.getScore(pm.p2)) {
+                JOptionPane.showMessageDialog(null, "Player 1 has won with a score of: " + this.pm.score.get(pm.p1) + " . While " +
+                        "Player 2 has a score of: " + this.pm.getScore(pm.p2));
+                gameframe.dispose();
                 return true;
-            } else if (this.pm.score.get(p2) > this.pm.score.get(p1)) {
-                JOptionPane.showMessageDialog(null, "Player 2 has won with a score of: " + this.pm.score.get(p2) + " . While " +
-                        "Player 1 has a score of: " + this.pm.score.get(p1));
+            } else if (this.pm.getScore(pm.p2) > this.pm.getScore(pm.p1)) {
+                JOptionPane.showMessageDialog(null, "Player 2 has won with a score of: " + this.pm.score.get(pm.p2) + " . While " +
+                        "Player 1 has a score of: " + this.pm.getScore(pm.p1));
+                gameframe.dispose();
                 return true;
             } else {
                 JOptionPane.showMessageDialog(null, "Nobody won, it was a tie!");
+                gameframe.dispose();
                 return true;
             }
         }
