@@ -8,7 +8,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import engine.BoardFactory;
+import static java.awt.GridBagConstraints.HORIZONTAL;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 //import engine.*;
 
 public class Driver extends JFrame{
@@ -18,6 +23,7 @@ public class Driver extends JFrame{
 	private JComboBox<String> games;
 	private String gameType;
 	private PlayerManager pm;
+        private String logoPath = "/images/MainPanel/gameslogo.png";
 	public Driver() {
 		super();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -27,25 +33,29 @@ public class Driver extends JFrame{
 	public void mainMenu(){
 		JPanel mainPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
+         
+                
+
+               
 		
-		c.gridx= 0; c.gridy=0;
+		c.gridx= 0; c.gridy=1;
 		JLabel mainLabel = new JLabel("Pick a game:");
 		mainPanel.add(mainLabel, c);
 		
-		c.gridx=1; c.gridy=0;
+		c.gridx=1; c.gridy=1;
 		games = new JComboBox<String>(availableGames);
 		gameType= availableGames[0];
 		mainPanel.add(games, c);
 		
-		c.gridx=0; c.gridy=1;
+		c.gridx=0; c.gridy=2;
 		JLabel p1 = new JLabel("Player 1:");
 		mainPanel.add(p1, c);
 		
-		c.gridx=1; c.gridy=1;
+		c.gridx=1; c.gridy=2;
 		JLabel p2 = new JLabel("Player 2:");
 		mainPanel.add(p2, c);
 		
-		c.gridx=0; c.gridy=2;
+		c.gridx=0; c.gridy=3;
 		JPanel p1input = new JPanel();
 		p1input.setLayout(new BoxLayout(p1input, BoxLayout.X_AXIS));
 		JTextField p1text = new JTextField();
@@ -55,7 +65,7 @@ public class Driver extends JFrame{
 		p1input.add(p1add);
 		mainPanel.add(p1input, c);
 		
-		c.gridx=1; c.gridy=2;
+		c.gridx=1; c.gridy=3;
 		JPanel p2input = new JPanel();
 		p2input.setLayout(new BoxLayout(p2input, BoxLayout.X_AXIS));
 		JTextField p2text = new JTextField();
@@ -65,27 +75,40 @@ public class Driver extends JFrame{
 		p2input.add(p2add);
 		mainPanel.add(p2input, c);
 		
-		c.gridx = 0; c.gridy = 3;
+		c.gridx = 0; c.gridy = 4;
 		JLabel p1l = new JLabel("---");
 		mainPanel.add(p1l,c);
 		
-		c.gridx = 1; c.gridy = 3;
+		c.gridx = 1; c.gridy = 4;
 		JLabel p2l = new JLabel("---");
 		mainPanel.add(p2l,c);
 		
-		c.gridx = 0; c.gridy = 4;
+		c.gridx = 0; c.gridy = 5;
 		JLabel p1w = new JLabel("---");
 		mainPanel.add(p1w,c);
 		
-		c.gridx = 1; c.gridy = 4;
+		c.gridx = 1; c.gridy = 5;
 		JLabel p2w = new JLabel("---");
 		mainPanel.add(p2w,c);
 		
-		c.gridx = 0; c.gridy = 5; c.gridwidth = 2;
+		c.gridx = 0; c.gridy = 6; c.gridwidth = 2;
 		playButton = new JButton("Play");
 		playButton.setEnabled(false);
 		mainPanel.add(playButton, c);
 		//mainPanel.setPreferredSize(new Dimension(500,500));
+                
+            try {
+                c.gridx = 0;c.gridy = 0; c.gridwidth= 2;
+                Image img = ImageIO.read(getClass().getResource(logoPath));
+                ImageIcon icon = new ImageIcon(img);
+                img = icon.getImage() ;  
+                Image newimg = img.getScaledInstance( 250, 100,  java.awt.Image.SCALE_SMOOTH ) ; 
+                JLabel logoLabel = new JLabel();
+                logoLabel.setIcon(new ImageIcon(newimg));
+                mainPanel.add(logoLabel, c);
+            } catch (IOException ex) {
+                Logger.getLogger(Driver.class.getName()).log(Level.SEVERE, null, ex);
+            }
 		
 		frame.add(mainPanel);
 		frame.pack();
