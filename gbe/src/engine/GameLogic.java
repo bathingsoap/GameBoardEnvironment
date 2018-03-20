@@ -1,7 +1,6 @@
 package engine;
 
 import players.*;
-import gui.*;
 
 public abstract class GameLogic {
 	State state;
