@@ -138,6 +138,7 @@ public class Driver extends JFrame{
 				p2w.setText("---");
 				p2l.setText("---");
 				
+				playButton.setEnabled(false);
 				BoardFactory boardFactory = new BoardFactory();
 				boardFactory.createBoard(gameType);
 				}

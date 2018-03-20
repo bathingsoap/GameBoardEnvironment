@@ -109,11 +109,11 @@ public class CLState extends State {
         
         if(turnInt == 0) {
         	board.updateP1Position(Integer.toString(newPosition));
-        	turnInt=1;board.updateTurnLabel("Player 2:");
+        	turnInt=1;board.updateTurnLabel(pm.p2.getUsername()+":");
         }
         else {
         	board.updateP2Position(Integer.toString(newPosition));
-        	turnInt=0;board.updateTurnLabel("Player 1:");
+        	turnInt=0;board.updateTurnLabel(pm.p1.getUsername()+":");
         }
         pm.swapTurn();
         

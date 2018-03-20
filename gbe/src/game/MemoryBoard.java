@@ -86,11 +86,11 @@ public class MemoryBoard implements Board {
             buttons[first_row][first_col].setVisible(false);
             buttons[second_row][second_col].setVisible(false);
             pm.scorePoint(pm.getCurrentPlayer());
-            statusBar.setStatus("Current player has made a match, it is still their turn! Their score is: " + this.pm.getScore(pm.currentPlayer));
+            statusBar.setStatus(pm.getCurrentPlayer().getUsername()+" has made a match, it is still their turn! Their score is: " + this.pm.getScore(pm.currentPlayer));
             checkWinner();
             return true;
         } else {
-            statusBar.setStatus("Current player did not make a match. Switching turns...");
+            statusBar.setStatus(pm.getCurrentPlayer().getUsername()+ " did not make a match. Switching turns...");
             misMatchTimer = new Timer(500, new OnMisMatchActionListener(buttons[first_row][first_col], buttons[second_row][second_col]));
             misMatchTimer.setRepeats(false);
             misMatchTimer.start();
@@ -100,17 +100,15 @@ public class MemoryBoard implements Board {
 
     public boolean checkWinner() {
         if (this.availableCards == 0) {
-        	System.out.println("Player 1: "+ pm.getScore(pm.p1));
-        	System.out.println("Player 2: "+pm.getScore(pm.p2));
             if (this.pm.getScore(pm.p1) > this.pm.getScore(pm.p2)) {
-                JOptionPane.showMessageDialog(null, "Player 1 has won with a score of: " + this.pm.score.get(pm.p1) + " . While " +
-                        "Player 2 has a score of: " + this.pm.getScore(pm.p2));
+                JOptionPane.showMessageDialog(null, pm.p1.getUsername() + " has won with a score of: " + this.pm.score.get(pm.p1) + " . While " +
+                		pm.p2.getUsername()+ " has a score of: " + this.pm.getScore(pm.p2));
                 pm.scoreWin(pm.p1);
                 gameframe.dispose();
                 return true;
             } else if (this.pm.getScore(pm.p2) > this.pm.getScore(pm.p1)) {
-                JOptionPane.showMessageDialog(null, "Player 2 has won with a score of: " + this.pm.score.get(pm.p2) + " . While " +
-                        "Player 1 has a score of: " + this.pm.getScore(pm.p1));
+                JOptionPane.showMessageDialog(null, pm.p2.getUsername() + " has won with a score of: " + this.pm.score.get(pm.p2) + " . While " +
+                		pm.p1.getUsername() +" has a score of: " + this.pm.getScore(pm.p1));
                 pm.scoreWin(pm.p2);
                 gameframe.dispose();
                 return true;
