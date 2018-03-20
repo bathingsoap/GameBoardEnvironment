@@ -63,9 +63,9 @@ public class CLState extends State {
                 newPosition = logic.moveUp(newPosition);
                 board.updateMessage4("You are now on space " + newPosition+".");
                 if(newPosition.equals(100)){
-                    board.updateMessage2("You are now on space 100." );
-                    board.updateMessage3("Congratulations, you win!");
-                    board.updateMessage4("---");
+                    board.updateMessage4("You are now on space 100." );
+                    board.updateMessage5("Congratulations, you win!");
+                    //board.updateMessage4("---");
                     board.updateWinner(true);
                     pm.setScore(pm.getCurrentPlayer(), newPosition);
                     pm.scoreWin(pm.getCurrentPlayer());
