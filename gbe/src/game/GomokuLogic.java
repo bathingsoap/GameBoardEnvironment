@@ -14,7 +14,7 @@ class GomokuLogic {
     private int rows;
     private int cols;
     private Color currentColor;
-    private ArrayList<ArrayList<Piece>> pieces;
+    private ArrayList<ArrayList<GomokuPiece>> pieces;
 
     GomokuLogic() {}
 
@@ -42,7 +42,7 @@ class GomokuLogic {
         this.currentColor = currentColor;
     }
 
-    void setPieces(ArrayList<ArrayList<Piece>> pieces2) {
+    void setPieces(ArrayList<ArrayList<GomokuPiece>> pieces2) {
         this.pieces = pieces2;
     }
 

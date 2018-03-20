@@ -2,10 +2,6 @@ package game;
 
 import engine.State;
 import players.*;
-import engine.Board;
-import engine.GameLogic;
-import java.util.HashMap;
-
 
 public class CLState extends State {
     private CLBoard board;
@@ -31,7 +27,6 @@ public class CLState extends State {
 
     @Override
     public void makeMove() {
-        boolean winner = false;
         Integer currentPosition = pm.getScore(pm.getCurrentPlayer());
         Integer die = logic.rollDie();
         board.updateMessage1("You rolled a " + die + "!");
@@ -49,7 +44,6 @@ public class CLState extends State {
             board.updateWinner(true);
             pm.setScore(pm.getCurrentPlayer(), newPosition);
             pm.scoreWin(pm.getCurrentPlayer());
-            winner = true;
         }else{
             board.updateMessage2("You are now on space " + newPosition + ".");
             board.updateMessage3("---");
@@ -69,7 +63,6 @@ public class CLState extends State {
                     board.updateWinner(true);
                     pm.setScore(pm.getCurrentPlayer(), newPosition);
                     pm.scoreWin(pm.getCurrentPlayer());
-                    winner = true;
                 }
             }
         }

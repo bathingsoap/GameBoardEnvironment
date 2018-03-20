@@ -26,9 +26,6 @@ public class CLLogic extends GameLogic{
 
     @Override
     public void update(State state){
-        Player player = this.state.getCurrentTurn();
-        Integer dieRoll = rollDie();
-        
         
     }
 

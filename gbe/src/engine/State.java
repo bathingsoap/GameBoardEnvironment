@@ -1,7 +1,6 @@
 package engine;
 
 import players.*;
-import gui.*;
 import java.util.HashMap;
 
 import javax.swing.Timer; // or import java.util.Timer

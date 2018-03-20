@@ -3,6 +3,7 @@ package game;
 import engine.Board;
 import pieces.GomokuPiece;
 import pieces.Piece;
+import players.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -16,13 +17,14 @@ public class GomokuBoard extends JFrame implements Board {
 	private GomokuPanel gomokuPanel = new GomokuPanel();
     private GomokuState gomokuState = GomokuState.getInstance();
     private String turn = gomokuState.getTurn();
-    private ArrayList<ArrayList<Piece>> pieces = gomokuState.getPieces();
+    private ArrayList<ArrayList<GomokuPiece>> pieces = gomokuState.getPieces();
     private boolean status = gomokuState.getStatus();
-
+    private PlayerManager pm;
     private Button restartButton = new Button("Restart ");
 
     public GomokuBoard() {
         setTitle(gameName);
+        pm = PlayerManager.getInstance();
         Panel buttons = new Panel();
         buttons.setLayout(new FlowLayout(FlowLayout.CENTER));
         buttons.add(restartButton);

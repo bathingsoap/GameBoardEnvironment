@@ -2,7 +2,6 @@ package game;
 
 import engine.Board;
 import engine.State;
-import pieces.*;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
@@ -40,7 +39,6 @@ public class CLBoard implements Board, ActionListener {
   	JPanel gbl;
     JFrame frame;
     Player p1; Player p2;
-    PlayerManager pm;
     
     String blackPiecePath;
     String whitePiecePath;
