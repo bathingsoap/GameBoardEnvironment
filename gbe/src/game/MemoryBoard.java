@@ -13,7 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
-public class MemoryBoard implements Board {
+public class MemoryBoard implements Board, ActionListener {
     private static final Character[] LETTERS = {'A', 'A', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H'};
     private static final String GAMETYPE = "Memory";
     private JButton[][] buttons = new JButton[4][4];
@@ -27,6 +27,10 @@ public class MemoryBoard implements Board {
     private Map<JButton, int[]> buttonCoords;
     private Object lock;
     private Timer misMatchTimer;
+
+    JPanel optionPanel;
+    JButton restart;
+    JButton exit;
 
     public MemoryBoard() {
         statusBar = new StatusBar();
@@ -64,6 +68,24 @@ public class MemoryBoard implements Board {
                 letterIndex++;
             }
         }
+
+        optionPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+
+        c.gridwidth=1;
+        c.weightx = 0.1;
+        c.gridx=0;
+        c.gridy=1;
+        restart = new JButton("restart");
+        exit = new JButton("exit");
+        restart.addActionListener(this);
+        exit.addActionListener(this);
+        optionPanel.add(restart, c);
+        c.gridx=1;
+        optionPanel.add(exit, c);
+
+        gameframe.add(optionPanel, BorderLayout.SOUTH);
+
         gameframe.pack();
         gameframe.setVisible(true);
     }
@@ -119,6 +141,20 @@ public class MemoryBoard implements Board {
             }
         }
         return false;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("restart")) {
+            MemoryBoard newGame = new MemoryBoard();
+            newGame.drawBoard(GAMETYPE);
+            gameframe.dispose();
+
+//          pm.newGame(GAMETYPE);
+        }
+        if (e.getActionCommand().equals("exit")) {
+            gameframe.dispose();
+        }
     }
 
     private class OnMisMatchActionListener implements ActionListener {
