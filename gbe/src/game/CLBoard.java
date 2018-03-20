@@ -74,9 +74,7 @@ public class CLBoard implements Board, ActionListener {
     JPanel optionPanel;
     JButton restart;
     JButton exit;
-    
-    CLPiece white;
-    CLPiece black;
+
     State state;
     boolean winner = false;
     

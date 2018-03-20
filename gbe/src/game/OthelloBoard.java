@@ -155,9 +155,13 @@ public class OthelloBoard implements Board, ActionListener {
                     if (pm.getScore(pm.p1) > pm.getScore(pm.p2)) {
                         JOptionPane.showMessageDialog(null, "Player 1 has won with a score of: " + pm.getScore(pm.p1) + " . While " +
                                 "Player 2 has a score of: " + pm.getScore(pm.p2));
+                        pm.scoreWin(pm.p1);
+                        frame.dispose();
                     } else if (pm.getScore(pm.p2) > pm.getScore(pm.p1)) {
                         JOptionPane.showMessageDialog(null, "Player 2 has won with a score of: " + pm.getScore(pm.p2) + " . While " +
                                 "Player 1 has a score of: " + pm.getScore(pm.p1));
+                        pm.scoreWin(pm.p2);
+                        frame.dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Nobody won, it was a tie!");
                     }

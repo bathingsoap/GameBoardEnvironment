@@ -105,16 +105,17 @@ public class MemoryBoard implements Board {
             if (this.pm.getScore(pm.p1) > this.pm.getScore(pm.p2)) {
                 JOptionPane.showMessageDialog(null, "Player 1 has won with a score of: " + this.pm.score.get(pm.p1) + " . While " +
                         "Player 2 has a score of: " + this.pm.getScore(pm.p2));
+                pm.scoreWin(pm.p1);
                 gameframe.dispose();
                 return true;
             } else if (this.pm.getScore(pm.p2) > this.pm.getScore(pm.p1)) {
                 JOptionPane.showMessageDialog(null, "Player 2 has won with a score of: " + this.pm.score.get(pm.p2) + " . While " +
                         "Player 1 has a score of: " + this.pm.getScore(pm.p1));
+                pm.scoreWin(pm.p2);
                 gameframe.dispose();
                 return true;
             } else {
                 JOptionPane.showMessageDialog(null, "Nobody won, it was a tie!");
-                gameframe.dispose();
                 return true;
             }
         }

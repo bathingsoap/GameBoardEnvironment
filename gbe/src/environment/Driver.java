@@ -61,7 +61,6 @@ public class Driver extends JFrame{
 		JTextField p2text = new JTextField();
 		p2text.setPreferredSize(new Dimension(150,20));
 		JButton p2add = new JButton("Ready");
-		p2add.setEnabled(false);
 		p2input.add(p2text);
 		p2input.add(p2add);
 		mainPanel.add(p2input, c);
@@ -75,10 +74,12 @@ public class Driver extends JFrame{
 		mainPanel.add(p2l,c);
 		
 		c.gridx = 0; c.gridy = 4;
-		
+		JLabel p1w = new JLabel("---");
+		mainPanel.add(p1w,c);
 		
 		c.gridx = 1; c.gridy = 4;
-		
+		JLabel p2w = new JLabel("---");
+		mainPanel.add(p2w,c);
 		
 		c.gridx = 0; c.gridy = 5; c.gridwidth = 2;
 		playButton = new JButton("Play");
@@ -127,11 +128,25 @@ public class Driver extends JFrame{
 		playButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(!p1text.getText().equals(p2text.getText())) {
 				pm.setPlayer1(p1text.getText());
 				pm.setPlayer2(p2text.getText());
+				p1text.setText("");
+				p2text.setText("");
+				p1w.setText("---");
+				p1l.setText("---");
+				p2w.setText("---");
+				p2l.setText("---");
 				
 				BoardFactory boardFactory = new BoardFactory();
 				boardFactory.createBoard(gameType);
+				}
+				else {
+					JFrame error = new JFrame();
+					error.add(new JLabel("Please enter different usernames!!!"));
+					error.pack();
+					error.setVisible(true);
+				}
 			}
 		});
 		
@@ -140,8 +155,16 @@ public class Driver extends JFrame{
 				//String p1user = p1add.getText();
 				//p1text.setEnabled(false);
 				//p1add.setEnabled(false);
-				p2add.setEnabled(true);
+				Player p;
+				if(pm.containPlayer(p1text.getText())==-1) {
+					p= new Player(p1text.getText());
+					pm.players.add(p);
+				}
+				else {
+					p=pm.players.get(pm.containPlayer(p1text.getText()));
+				}
 				
+				p1w.setText("Wins: " + p.getWins());
 				p1l.setText(p1text.getText());
 				//frame.repaint();
 			}
@@ -149,10 +172,15 @@ public class Driver extends JFrame{
 		
 		p2add.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				//p2text.setEnabled(false);
-				//p2add.setEnabled(false);
-				//String p1user = p1add.getText();
-				//String p2user = p2add.getText();
+				Player p;
+				if(pm.containPlayer(p2text.getText())==-1) {
+					p= new Player(p2text.getText());
+					pm.players.add(p);
+				}
+				else {
+					p=pm.players.get(pm.containPlayer(p2text.getText()));
+				}
+				p2w.setText("Wins: " + p.getWins());
 				p2l.setText(p2text.getText());
 				
 				playButton.setEnabled(true);

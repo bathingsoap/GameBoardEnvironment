@@ -31,4 +31,7 @@ public class Player {
 	}
 	public String getUsername() { return this.username; }
 	
+	public int getWins() {
+		return victories;
+	}
 }

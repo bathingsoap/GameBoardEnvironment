@@ -48,6 +48,7 @@ public class CLState extends State {
             board.updateMessage4("---");
             board.updateWinner(true);
             pm.setScore(pm.getCurrentPlayer(), newPosition);
+            pm.scoreWin(pm.getCurrentPlayer());
             winner = true;
         }else{
             board.updateMessage2("You are now on space " + newPosition + ".");
@@ -67,6 +68,7 @@ public class CLState extends State {
                     board.updateMessage4("---");
                     board.updateWinner(true);
                     pm.setScore(pm.getCurrentPlayer(), newPosition);
+                    pm.scoreWin(pm.getCurrentPlayer());
                     winner = true;
                 }
             }

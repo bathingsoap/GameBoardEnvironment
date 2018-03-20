@@ -7,11 +7,11 @@ import java.util.Map.Entry;
 import engine.*;
 
 public class PlayerManager {
-	ArrayList<Player> players = new ArrayList<Player>();
+	public ArrayList<Player> players = new ArrayList<Player>();
 	public Player p1; // ArrayList to include unlimited number of players (maybe people can log in and log out?
 	public Player p2;
 	public HashMap<Player, Integer> score = new HashMap<Player, Integer>();
-	public HashMap<Player, Integer> totalScore = new HashMap<Player, Integer>();
+	//public HashMap<Player, Integer> wins = new HashMap<Player, Integer>();
 	public Player currentPlayer;
 	private static PlayerManager pm = null;
 	
@@ -70,17 +70,16 @@ public class PlayerManager {
 	}
 	
 	
-	/*public void scorePoint(Player player){
-		int currentScore = this.score.get(player);
-		this.score.put(player, currentScore+1);
-	}*/
-	
 	public void setScore(Player p, int s) {
 		score.put(p, s);
 	}
 	
 	public void scorePoint(Player p) {
-		score.put(p, getScore(p.getUsername())+1);
+		score.put(p, getScore(p)+1);
+	}
+	
+	public void scoreWin(Player p) {
+		p.victories++;
 	}
 	
 	public int getScore(String un) {
@@ -116,10 +115,6 @@ public class PlayerManager {
 			this.p2.notTurn();
 			this.currentPlayer = this.p1;
 		}
-		for (Entry<Player, Integer> entry : score.entrySet()) {
-			System.out.println(entry.getKey().getUsername() + ":" + entry.getValue());
-	    }
-		System.out.println("--");
 
 		return this.currentPlayer;
 	}
