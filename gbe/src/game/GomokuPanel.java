@@ -3,6 +3,7 @@ package game;
 import engine.Board;
 import pieces.GomokuPiece;
 import pieces.Piece;
+import players.PlayerManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,9 +17,9 @@ public class GomokuPanel extends JPanel implements MouseListener {
 	private GomokuLogic gomokuLogic = new GomokuLogic();
     private GomokuState gomokuState = GomokuState.getInstance();
     private String turn = gomokuState.getTurn();
-    private ArrayList<ArrayList<Piece>> pieces = gomokuState.getPieces();
+    private ArrayList<ArrayList<GomokuPiece>> pieces = gomokuState.getPieces();
     private boolean status = gomokuState.getStatus();
-
+    private PlayerManager pm;
     // --- Current Attributes ---
 
     private Color color;
@@ -53,6 +54,8 @@ public class GomokuPanel extends JPanel implements MouseListener {
                 }
             }
         });
+        
+        pm = PlayerManager.getInstance();
     }
 
     @Override
@@ -85,6 +88,8 @@ public class GomokuPanel extends JPanel implements MouseListener {
         repaint();
         if (gomokuLogic.boolWin()) {
             String message = String.format("Congratulation to %s Player!", turn);
+            if(turn.equals("Black")){pm.scoreWin(pm.p1);}
+            if(turn.equals("White")){pm.scoreWin(pm.p2);}
             JOptionPane.showMessageDialog(this, message);
             status = true;
         } else if (boolFullPiece()) {
@@ -136,7 +141,7 @@ public class GomokuPanel extends JPanel implements MouseListener {
     }
 
     private boolean boolFullPiece() {
-        for (ArrayList<Piece> piece : pieces) {
+        for (ArrayList<GomokuPiece> piece : pieces) {
             for (Piece aPiece : piece) {
                 if (aPiece.getColor().getAlpha() == new Color(0, 0, 0, 0).getAlpha())
                     return false;

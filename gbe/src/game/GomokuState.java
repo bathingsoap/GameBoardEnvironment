@@ -7,11 +7,11 @@ import java.util.Objects;
 
 import pieces.GomokuPiece;
 import pieces.Piece;
-import pieces.PieceFactory;
 
 public class GomokuState {
 	private static String turn;
-	private static ArrayList<ArrayList<Piece>> pieces = new ArrayList<>();
+	private static ArrayList<ArrayList<GomokuPiece>> pieces = new ArrayList<>();
+	private GomokuPiece gomokuPiece;
 	private static boolean status;
 	private static GomokuState single_instance = null;
 	
@@ -35,7 +35,7 @@ public class GomokuState {
     		return turn;
     }
     
-    ArrayList<ArrayList<Piece>> getPieces() {
+    ArrayList<ArrayList<GomokuPiece>> getPieces() {
     		return pieces;
     }
     
@@ -51,10 +51,9 @@ public class GomokuState {
     
     private void initPieces() {
         for (int i = 0; i < 16; i++) {
-            ArrayList<Piece> arrayList = new ArrayList<>();
-            PieceFactory pf = new PieceFactory();
+            ArrayList<GomokuPiece> arrayList = new ArrayList<>();
             for (int j = 0; j < 16; j++) {
-                Piece gomokuPiece = pf.getPiece("Gomoku");
+            	gomokuPiece = new GomokuPiece();
                 gomokuPiece.createPiece(i, j, new Color(0, 0, 0, 0));
                 arrayList.add(gomokuPiece);
             }
@@ -67,7 +66,7 @@ public class GomokuState {
     }
 
     void resetPiece() {
-        for (ArrayList<Piece> piece : pieces) {
+        for (ArrayList<GomokuPiece> piece : pieces) {
             for (Piece aPiece : piece) {
                 aPiece.setColor(new Color(0, 0, 0, 0));
             }
