@@ -64,6 +64,26 @@ public class OthelloState extends State{
     @Override
     public void restart() {
     	pm.newGame();
+    	 pm.setScore(pm.p1, 2);
+         pm.setScore(pm.p2, 2);
+         pieces = new String[8][8];
+         for(int i = 0; i < 8; i++){
+             for(int j = 0; j < 8; j++){
+                 pieces[i][j] = "";
+                 System.out.print(pieces[i][j]);
+             }
+             System.out.println();
+         }
+         
+         pieces[3][3] = "white";
+         pieces[4][4] = "white";
+         pieces[3][4] = "black";
+         pieces[4][3] = "black";
+         System.out.println(pieces[3][3]);
+         movesLeft = new ArrayList<>();
+         setMovesLeft();
+         
+         
     }
 
     @Override

@@ -77,6 +77,7 @@ public class CLBoard implements Board, ActionListener {
     boolean winner = false;
     
     JPanel game;
+    private PlayerManager pm;
     
     int buttonWidth;
     int buttonHeight;
@@ -158,6 +159,7 @@ public class CLBoard implements Board, ActionListener {
         */
         
         //frame.add(game);
+        pm = PlayerManager.getInstance();
         JPanel info = drawInfoBoard();
         frame.add(info);
         
@@ -181,7 +183,7 @@ public class CLBoard implements Board, ActionListener {
     	
     	p1Panel = new JPanel();
     	p1Panel.setLayout(new BorderLayout());
-    	p1Label = new JLabel("Player 1 position: ");
+    	p1Label = new JLabel(pm.p1.getUsername()+" position: ");
     	p1Position = new TextField("0");
     	p1Position.setEditable(false);
     	p1Panel.add(p1Label, BorderLayout.LINE_START);
@@ -189,7 +191,7 @@ public class CLBoard implements Board, ActionListener {
     	      
     	p2Panel = new JPanel();
     	p2Panel.setLayout(new BorderLayout());
-    	p2Label = new JLabel("Player 2 position: ");
+    	p2Label = new JLabel(pm.p2.getUsername()+" position: ");
     	p2Position = new TextField("0");
     	p2Position.setEditable(false);
     	p2Panel.add(p2Label, BorderLayout.LINE_START);
@@ -197,7 +199,7 @@ public class CLBoard implements Board, ActionListener {
     	
     	rollPanel = new JPanel();
     	rollPanel.setLayout(new BoxLayout(rollPanel,BoxLayout.X_AXIS));
-    	turnLabel = new JLabel("Player 1:");
+    	turnLabel = new JLabel(pm.p1.getUsername()+":");
     	rollButton = new JButton("Roll");
         rollButton.addActionListener(this);
         rollPanel.add(turnLabel);

@@ -9,6 +9,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class OthelloBoard implements Board, ActionListener {
     JButton[][] buttons = new JButton[8][8];
@@ -60,8 +61,8 @@ public class OthelloBoard implements Board, ActionListener {
 	      frame.add(statusPanel, BorderLayout.SOUTH);
 	      statusPanel.setPreferredSize(new Dimension(frame.getWidth(), 60));
 	      statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS));
-	      status = new JLabel("<html>" + "<strong>Player 1:</strong> " + state.pm.score.get(state.pm.p1) + "<br/><strong>Player 2:</strong> " +
-	              state.pm.score.get(state.pm.p2) + "</html>"); // value, here will be username and score,
+	      status = new JLabel("<html>" + "<strong>"+state.pm.p1.getUsername()+": </strong> " + state.pm.getScore(state.pm.p1) + "<br/><strong>"+state.pm.p2.getUsername()+": </strong> " +
+   	              state.pm.getScore(state.pm.p2) + "</html>");
 	      status.setForeground(Color.white);
 	      status.setFont(new Font("Arial", Font.PLAIN, 18));
 	      status.setHorizontalAlignment(SwingConstants.CENTER);
@@ -146,20 +147,20 @@ public class OthelloBoard implements Board, ActionListener {
                 }
             }
             // update label here
-            status.setText("<html>" + "<strong>Player 1:</strong> " + state.pm.score.get(state.pm.p1) + "<br/><strong>Player 2:</strong> " +
-                    state.pm.score.get(state.pm.p2) + "</html>");
+            status.setText("<html>" + "<html>" + "<strong>"+state.pm.p1.getUsername()+": </strong> " + state.pm.getScore(state.pm.p1) + "<br/><strong>"+state.pm.p2.getUsername()+": </strong> " +
+     	              state.pm.getScore(state.pm.p2) + "</html>");
 
             //check winning state
             if(logic.checkWinningState()){
                 if (state.movesLeft.isEmpty()) {
                     if (pm.getScore(pm.p1) > pm.getScore(pm.p2)) {
-                        JOptionPane.showMessageDialog(null, "Player 1 has won with a score of: " + pm.getScore(pm.p1) + " . While " +
-                                "Player 2 has a score of: " + pm.getScore(pm.p2));
+                        JOptionPane.showMessageDialog(null, state.pm.p1.getUsername()+" has won with a score of: " + pm.getScore(pm.p1) + " . While " +
+                        		state.pm.p2.getUsername() + " has a score of: " + pm.getScore(pm.p2));
                         pm.scoreWin(pm.p1);
                         frame.dispose();
                     } else if (pm.getScore(pm.p2) > pm.getScore(pm.p1)) {
-                        JOptionPane.showMessageDialog(null, "Player 2 has won with a score of: " + pm.getScore(pm.p2) + " . While " +
-                                "Player 1 has a score of: " + pm.getScore(pm.p1));
+                        JOptionPane.showMessageDialog(null, state.pm.p2.getUsername()+ " has won with a score of: " + pm.getScore(pm.p2) + " . While " +
+                        		state.pm.p1.getUsername()+ " has a score of: " + pm.getScore(pm.p1));
                         pm.scoreWin(pm.p2);
                         frame.dispose();
                     } else {
@@ -177,8 +178,28 @@ public class OthelloBoard implements Board, ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals("restart")) {
+        	
         	state.restart();
-        	//frame.repaint();
+        	for (int i = 0; i < 8; i++) { // row
+                for (int j = 0; j < 8; j++) { // col
+                	if (i == 3 && j == 3 || i == 4 && j == 4) {
+                        buttons[i][j].setBackground(Color.white);
+                        buttons[i][j].setBorder(new LineBorder(Color.black, 1));
+                        buttons[i][j].setForeground(Color.black);
+                    } else if (i == 3 && j == 4 || i == 4 && j == 3) {
+                    	buttons[i][j].setBackground(Color.black);
+                    	buttons[i][j].setBorder(new LineBorder(Color.black, 1));
+                    	buttons[i][j].setForeground(Color.white);
+                    } else {
+                    	buttons[i][j].setBackground(new Color(0, 100, 0));
+                    	buttons[i][j].setBorder(new LineBorder(Color.black, 1));
+                    }
+                }
+            }
+        	 status.setText("<html>" + "<html>" + "<strong>"+state.pm.p1.getUsername()+": </strong> " + state.pm.getScore(state.pm.p1) + "<br/><strong>"+state.pm.p2.getUsername()+": </strong> " +
+    	              state.pm.getScore(state.pm.p2) + "</html>");
+        	 
+        	
         }
         if(e.getActionCommand().equals("exit")) {
         	frame.dispose();

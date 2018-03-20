@@ -87,7 +87,7 @@ public class GomokuPanel extends JPanel implements MouseListener {
         // --- Drawing ---
         repaint();
         if (gomokuLogic.boolWin()) {
-            String message = String.format("Congratulation to %s Player!", turn);
+            String message = String.format("Congratulation to %s Player!", turn.equals("Black")? pm.p1.getUsername():pm.p2.getUsername());
             if(turn.equals("Black")){pm.scoreWin(pm.p1);}
             if(turn.equals("White")){pm.scoreWin(pm.p2);}
             JOptionPane.showMessageDialog(this, message);
